@@ -1,0 +1,232 @@
+{
+ "label": "SIMULATION",
+ "format": "botnes-evidence-2",
+ "run": "assemblenist_R16_20261026T232046Z",
+ "phase": "main",
+ "exit": 0,
+ "status": "complete",
+ "note": null,
+ "complete": true,
+ "mandatory": [
+  "plan.json",
+  "bank/projection.json",
+  "results.json",
+  "audit.json",
+  "robot_reports.jsonl",
+  "summary.json",
+  "evidence_manifest.json"
+ ],
+ "mandatory_missing": [],
+ "episode_counts": {
+  "per_condition": {
+   "REF": {
+    "planned": 320,
+    "completed": 320,
+    "reports": 320,
+    "audits": 320,
+    "aborted": false
+   },
+   "V1_OFFSET": {
+    "planned": 320,
+    "completed": 320,
+    "reports": 320,
+    "audits": 320,
+    "aborted": false
+   },
+   "V2_OILY": {
+    "planned": 320,
+    "completed": 320,
+    "reports": 320,
+    "audits": 320,
+    "aborted": false
+   }
+  },
+  "total": {
+   "planned": 960,
+   "completed": 960,
+   "in_results_json": 960,
+   "in_robot_reports_jsonl": 960,
+   "in_audit_json": 960
+  },
+  "combined_per_condition": {
+   "REF": {
+    "results": 320,
+    "reports": 320,
+    "audits": 320
+   },
+   "V1_OFFSET": {
+    "results": 320,
+    "reports": 320,
+    "audits": 320
+   },
+   "V2_OILY": {
+    "results": 320,
+    "reports": 320,
+    "audits": 320
+   }
+  },
+  "combined_unreadable": [],
+  "duplicate_episode_keys": {},
+  "episode_keys_differ": false
+ },
+ "episode_count_problems": [],
+ "raw_signals_sent": false,
+ "raw_signals_note": "Raw 25 Hz signals (signals/*.npz) are never sent through the log export; they stay in the disposable container (and in a bucket copy only if one was mounted). From the exported JSON anyone can recount every verdict and summary, but the audit cannot be fully recomputed from the signals.",
+ "files": [
+  {
+   "path": "main/audit.json",
+   "bytes": 585928,
+   "sha256": "651cd820a557b20d22db94f56ed27d1f75f236c7b208488e3ca800b44542cc2b",
+   "kind": "evidence",
+   "export": "sent in package main-final"
+  },
+  {
+   "path": "main/bank/build_banks_log_tail.txt",
+   "bytes": 58,
+   "sha256": "37f8bc6380c009e4cd6dc95912f73212f6833f51da34b0d699be494bb29ef52b",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/bank/projection.json",
+   "bytes": 619,
+   "sha256": "5678e2496ea44493d890919d64df65c30d29255178f3100c7c4312a67656ab28",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/REF_audit.json",
+   "bytes": 193025,
+   "sha256": "1259587df0f5bd8cc48d15c40166b7f28542942febbe42adce1a0fe9daca1d49",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/REF_results.json",
+   "bytes": 197260,
+   "sha256": "c1d759a5d529189a5a9f25b42b95832a7389ea052d001fc277f8046a5b6ec41c",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/REF_robot_reports.jsonl",
+   "bytes": 520753,
+   "sha256": "b9b393c11a54316115d7f299f6ffd64e4e4357c8e4c1591d3ec20eb89d36ed28",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/V1_OFFSET_audit.json",
+   "bytes": 195127,
+   "sha256": "587c0d5f18736605291c8b3878f418e2410cd94182089fe3760028cab9aed245",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/V1_OFFSET_results.json",
+   "bytes": 213982,
+   "sha256": "39a6f34eb2d6d31d600c814d91d8c5ebea1b98199af0dc36ae44c7073c2e28ae",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/V1_OFFSET_robot_reports.jsonl",
+   "bytes": 520832,
+   "sha256": "bf53ae5e97e5fda79f1066a63f2aa8fb1083a3a4f76c8952f89e2bdd0aa0511a",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/V2_OILY_audit.json",
+   "bytes": 195715,
+   "sha256": "b0b3fc075ca80c7c38bff635c211338746988a380bf2743b7c6dadfc0a808b15",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/V2_OILY_results.json",
+   "bytes": 199168,
+   "sha256": "928c9b41c99f0412de95f89ce32ff8a3735285f4aa63f0799b1521cbc96b1b2d",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/conditions/V2_OILY_robot_reports.jsonl",
+   "bytes": 527837,
+   "sha256": "ae6768558bb43588748e7a35b57b995c30588cec78e52e9969f60173b3879404",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/plan.json",
+   "bytes": 62241,
+   "sha256": "b519670f8cd471b1dfeb631a29bc10ccea37922645e99c70829e7693936ffabe",
+   "kind": "evidence",
+   "export": "sent earlier"
+  },
+  {
+   "path": "main/results.json",
+   "bytes": 620689,
+   "sha256": "11f076e330de9c9cb4c913ede000211db420f29fa120802f4f097d2270341e66",
+   "kind": "evidence",
+   "export": "sent in package main-final"
+  },
+  {
+   "path": "main/robot_reports.jsonl",
+   "bytes": 1569422,
+   "sha256": "ca6e6f1105d93532ab02d36e35612e7ddae329deb3403e0510622ab4f6a6fbe0",
+   "kind": "evidence",
+   "export": "sent in package main-final"
+  },
+  {
+   "path": "main/signals/REF_signals.npz",
+   "bytes": 6804010,
+   "sha256": "69ccb0faed44c6f4e18a1d18126c02bd37f83493188c0bc61e1c9bf7863637d4",
+   "kind": "raw_signals",
+   "export": "never sent through the logs (RAW_SIGNALS_NOTE)"
+  },
+  {
+   "path": "main/signals/V1_OFFSET_signals.npz",
+   "bytes": 6813668,
+   "sha256": "269debde6d993c445a7166d6832790c60196fc137266a986257b454a4163aed1",
+   "kind": "raw_signals",
+   "export": "never sent through the logs (RAW_SIGNALS_NOTE)"
+  },
+  {
+   "path": "main/signals/V2_OILY_signals.npz",
+   "bytes": 6623719,
+   "sha256": "e0501c5f252a5edc40e225360bd7d0e5aeceec747d63104762049329b05f0699",
+   "kind": "raw_signals",
+   "export": "never sent through the logs (RAW_SIGNALS_NOTE)"
+  },
+  {
+   "path": "main/summary.json",
+   "bytes": 4688,
+   "sha256": "4feaa7176bec3b3c9b4f302f9219f9ca04a44111009a3f9ffd182b21234793c1",
+   "kind": "evidence",
+   "export": "sent in package main-final"
+  },
+  {
+   "path": "main/video_index.json",
+   "bytes": 584,
+   "sha256": "357d42281d1be4e2bb7c470b4f4b69a7107d39d58e2548ef1e16b6b5655da964",
+   "kind": "evidence",
+   "export": "sent in package main-final"
+  },
+  {
+   "path": "main/videos/first_failure_REF_ep139.mp4",
+   "bytes": 46802,
+   "sha256": "c8aca99f16f7c7688e5a4a1328da2408aca8e90fafcfd4ff5b6cc9f8151ac2bd",
+   "kind": "optional",
+   "export": "sent in package main-optional"
+  },
+  {
+   "path": "main/videos/first_success_REF_ep000.mp4",
+   "bytes": 865196,
+   "sha256": "6924c289ee7674581c9412fa287d35fe643ee3d8c891e386799a29060e194b5a",
+   "kind": "optional",
+   "export": "not exported: over the optional cap of 600 KiB of base64"
+  }
+ ],
+ "written_utc": "2026-10-26T23:25:30Z"
+}

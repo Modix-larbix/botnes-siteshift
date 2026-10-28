@@ -1,0 +1,28 @@
+# Copyright 2026 Botnes (Moad Larabi). Licensed under the Apache License, Version 2.0.
+# SIMULATION ONLY. AssembleNIST bounded trial (26/10/2026). Installed INSIDE the disposable Nebius CPU Job by
+# job_entry.sh, never on a workstation. Binary wheels only (--only-binary :all:), from https://pypi.org/simple.
+#
+# torch is NOT in this file: job_entry.sh installs torch==2.14.1+cpu from the official PyTorch CPU index
+# (https://download.pytorch.org/whl/cpu), which avoids the multi-GB CUDA wheels of the PyPI build.
+#
+# mujoco 3.14.0, numpy 2.5.3 and the mujoco dependencies below are the versions of the Nebius CPU probe that
+# passed on 18/10/2026 (verif/nebius_premier_essai_20261018/requirements-linux.lock). The other pins were the
+# newest releases at least two weeks old on 26/10/2026 (PyPI metadata read on 26/10). Upstream asks for
+# mujoco>=3.3, torch>=2.1, numpy, scipy, imageio[ffmpeg], pillow (requirements.txt of the pinned commit);
+# matplotlib is only used by its plotting scripts and is left out. Codex may turn this file into a
+# hash-locked one (--require-hashes), as on 18/10, before the launch.
+mujoco==3.14.0
+numpy==2.5.3
+absl-py==2.5.0
+etils[epath]==1.14.0
+glfw==2.10.2
+PyOpenGL==3.1.10
+fsspec==2026.9.0
+typing_extensions==4.16.0
+zipp==4.1.0
+websockets==17.1
+scipy==1.18.1
+imageio==2.37.4
+imageio-ffmpeg==0.6.0
+psutil==7.2.2
+pillow==12.3.0

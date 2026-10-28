@@ -1,0 +1,65 @@
+{
+ "answer_sha256": "239115c450103173a3aaca1c50a843888ef97d2140556d3b6af17c2be3940ad7",
+ "authorization_id": "REDACTED (private field, see PROVENANCE.json)",
+ "choice_dir": "REDACTED (private field, see PROVENANCE.json)",
+ "code_root": "REDACTED (private field, see PROVENANCE.json)",
+ "code_root_siteagent_tree_sha256": "5fbd3df1f3df536f8717b25ba3dd427fe2ab1c41c65621ef6e39a353e271e599",
+ "computed_cost_usd": "0.0003930",
+ "cost_status": "settled",
+ "date": "2026-10-21T00:15:00+02:00",
+ "envelope": {
+  "limits_version": "demoA-choice-call-1",
+  "max_calls": 1,
+  "max_cost_usd": "0.0327456",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "prompt_version": "demoA-choice-1",
+  "purpose": "demo A: one menu choice on one frozen request",
+  "reasoning_effort": null,
+  "request_sha256": "37b01a38b0bb034786b1997d5b988ef3bfa60dce3e41833e891858e38950ab93",
+  "system_sha256": "583c307cbff89d4cfc0b3d099f17cc3fdfce49902a50dc9b3649441d9f168358"
+ },
+ "fake": false,
+ "finish_reason": "stop",
+ "journal_activity": "demoA_choice:37b01a38b0bb0347",
+ "journal_row": "REDACTED (private field, see PROVENANCE.json)",
+ "label": "Demo A choice call: one real call to Nemotron (Token Factory) on the exact frozen text of choice_request.json, text only; cost from the provider's usage at the reviewed prices",
+ "latency_s": 2.384,
+ "ledger": {
+  "calls": 1,
+  "computed_cost_usd": "0.0003930",
+  "envelope": {
+   "authorization_id": "REDACTED (private field, see PROVENANCE.json)",
+   "committed_usd": "0.0003930",
+   "max_calls": 1,
+   "max_cost_usd": "0.0327456",
+   "reserved_calls": 1
+  },
+  "journal": "REDACTED (private field, see PROVENANCE.json)",
+  "label": "prep_log.csv journal (tf_guardrails.Ledger)",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "reservation_per_call_usd": "0.0327456",
+  "reserved_uncertain_usd": "0",
+  "settled": 1,
+  "uncertain": 0
+ },
+ "marker": "REDACTED (private field, see PROVENANCE.json)",
+ "model": "nvidia/nemotron-3-super-120b-a12b",
+ "model_id": "nvidia/nemotron-3-super-120b-a12b",
+ "nothing_sent": false,
+ "reasoning_chars": 673,
+ "request_sha256": "37b01a38b0bb034786b1997d5b988ef3bfa60dce3e41833e891858e38950ab93",
+ "reservation_id": 0,
+ "schema": "demoA-choice-call-1",
+ "status": "answered",
+ "transport": "token_factory",
+ "uncertain_usd": null,
+ "usage": {
+  "completion_tokens": 204,
+  "completion_tokens_details": {
+   "reasoning_tokens": 164
+  },
+  "prompt_tokens": 698,
+  "total_tokens": 902
+ },
+ "usage_source": "provider"
+}

@@ -1,0 +1,98 @@
+# inspect_v2.bs - Demo A, step 1: fixed inspection program written by the team, not by the model.
+# Version 2 (19/10/2026 evening, Codex Q8): inspect_v1.bs without its calibrate() at the start, nothing else
+# changed. The loop has already calibrated before request 1: its prelude ("calibrate", "look_pose") runs before
+# the orientation view and before any model request, and a failed prelude ends the episode with no request
+# (R/agent/bench_agent.py:108 and 365; R/agent/loop.py:1489-1498, then 1540).
+# Based on TPL1_procedure_relook1.bs (replay472_20261010/G0_expected_scan/templates), with three changes:
+# 1. no drawer is closed (decision D7): drawers stay open after the inspection;
+# 2. the robot's own readings search_scope("sponge") and difference_report() are written with log(),
+#    one short line per region, per track and per difference (tag, then one JSON object);
+# 3. a three-branch end: sponge seen -> help(kind="search_incomplete"), reopened by the robot's help review
+#    (a perceived sponge not picked); every region cleared -> not_found("inspected_scope"), checked by the
+#    robot's not_found guard; otherwise help(kind="search_incomplete").
+# Simulation, simulated perception.
+
+def is_incident(reason):
+    code = str(reason)
+    return code.startswith(["pull_", "push_"]) or code in ["stuck", "blocked", "collision", "force_limit", "collision_on_approach", "lift_blocked"]
+
+def short_entry(e):
+    out = {"category": get(e, "category"), "type": get(e, "type")}
+    for k in ["declared_region", "declared_slot", "status", "stale", "inspected_step", "observed_in", "observed_region", "observed_slot", "observed_slots"]:
+        if has(e, k):
+            out = set_key(out, k, e[k])
+    return out
+
+s = search_scope("sponge")
+regions = []
+for row in s["scope"]:
+    regions = append(regions, row["region"])
+for region in regions:
+    if region.startswith("drawer_unit:"):
+        h = handle_for_region(region)
+        if h is None:
+            o = observe("robot_eye")
+            h = handle_for_region(region)
+        if h is not None:
+            r = open_drawer(h["position_m"], h["pull_dir"])
+            if not r["ok"] and is_incident(r["reason"]):
+                help("drawer " + str(r["reason"]), kind="safety")
+    r = look_at_region(region)
+    if not r["ok"] and is_incident(r["reason"]):
+        help("look " + str(r["reason"]), kind="safety")
+    if r["ok"]:
+        o = observe("wrist_cam")
+s = search_scope("sponge")
+for row in s["scope"]:
+    if not row["cleared"]:
+        r = look_at_region(row["region"], "unseen")
+        if not r["ok"] and is_incident(r["reason"]):
+            help("look " + str(r["reason"]), kind="safety")
+        if r["ok"]:
+            o = observe("wrist_cam")
+s = search_scope("sponge")
+inspected = []
+for row in s["scope"]:
+    if row["cleared"]:
+        inspected = append(inspected, row["region"])
+log("inspected", inspected)
+
+# ---- the robot's own readings at the end of the inspection, for the map (read by the export, never relabelled)
+log("demoA.scope", {"outcome": s["outcome"], "min_coverage": get(s, "min_coverage"), "n_regions": len(s["scope"]), "n_found_tracks": len(s["found_tracks"])})
+log("demoA.not_cleared", s["not_cleared"])
+log("demoA.outside_scope", get(s, "not_inspected_outside_scope", []))
+n = 0
+for row in s["scope"]:
+    if n >= 20:
+        break
+    n += 1
+    log("demoA.scope_row", {"region": row["region"], "status": row["status"], "coverage": row["coverage"], "step": get(row, "step"), "seen": row["seen"], "unseen_part_could_hide_it": row["unseen_part_could_hide_it"], "evidence_invalidated_by_later_action": get(row, "evidence_invalidated_by_later_action"), "cleared": row["cleared"]})
+n = 0
+for t in s["found_tracks"]:
+    if n >= 10:
+        break
+    n += 1
+    log("demoA.found_track", {"track_id": t["track_id"], "status": t["status"], "region": t["region"]})
+d = difference_report()
+entries = get(d, "entries", [])
+log("demoA.difference_report", {"n_differences_or_unknowns": get(d, "n_differences_or_unknowns"), "n_entries": len(entries)})
+n = 0
+for e in entries:
+    if n >= 40:
+        break
+    n += 1
+    log("demoA.difference", short_entry(e))
+
+# ---- three-branch end ("sponge seen" first: found_tracks or the seen column, cleared or not)
+seen = len(s["found_tracks"]) > 0
+for row in s["scope"]:
+    if row["seen"]:
+        seen = True
+if seen:
+    log("demoA.end", {"branch": "sponge_seen"})
+    help("sponge seen not picked", kind="search_incomplete")
+if s["outcome"] == "not_found_in_inspected_scope":
+    log("demoA.end", {"branch": "all_cleared"})
+    not_found("inspected_scope")
+log("demoA.end", {"branch": "regions_not_cleared"})
+help("regions still to check " + str(len(s["not_cleared"])), kind="search_incomplete")

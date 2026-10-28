@@ -1,0 +1,57 @@
+{
+ "version": "agent-budget-4",
+ "status": "ACTIVE from 06/10/2026. Explicit null means no financial or attempt ceiling. agent_budget_v3.json is retained unchanged for historical finite envelopes. Accounting and request bounds remain active.",
+ "decision": "Moad, direct request 06/10/2026: remove financial and attempt ceilings. Supersedes prior batch, episode, cumulative checkpoint and absolute spend limits, including the 30 USD confirmation and historical 150/200 USD stops. Keep costs and reservations recorded, request schema and reviewed prices unchanged, and finite execution time and dataset size. No real call is made by this configuration update.",
+ "request_bounds": {
+  "max_completion_tokens": 16384,
+  "reserved_prompt_tokens": 60000,
+  "prompt_overhead_tokens": 2048,
+  "unit": "tokens",
+  "note": "reservation of one call = reserved_prompt_tokens x prompt price + max_completion_tokens x completion price (USD per TOKEN). Before every reservation and every send, the request's prompt bound (UTF-8 bytes of the messages + 8 per message + prompt_overhead_tokens; tf_guardrails.prompt_token_bound, a conservative byte-based HYPOTHESIS, not a proof of each endpoint's tokenizer: batch 3 used at most 13349 prompt tokens with at least 13385 tokens of margin) must be <= reserved_prompt_tokens, else nothing is reserved or sent; at settlement, prompt_tokens above reserved_prompt_tokens or completion_tokens above max_completion_tokens is invalid usage (the larger amount kept as uncertain, run stopped). Since v4 the message schema is closed (exactly role and content, role system or user, content text). Reasoning tokens count as output tokens: an optional usage.completion_tokens_details.reasoning_tokens is recorded, never used for cost."
+ },
+ "models": {
+  "nvidia/nemotron-3-super-120b-a12b": {
+   "label": "Nemotron 3 Super",
+   "prompt_usd_per_token": "0.0000003",
+   "completion_usd_per_token": "0.0000009",
+   "max_model_len": 262144,
+   "reservation_per_call_usd": "0.0327456",
+   "source": "live catalog 03/10/2026 and every stage of batches 1 to 3 (05/10/2026); checked again at launch. 60000 x 0.0000003 + 16384 x 0.0000009 = 0.018 + 0.0147456"
+  },
+  "nvidia/Nemotron-3-Ultra-550b-a55b": {
+   "label": "Nemotron 3 Ultra",
+   "prompt_usd_per_token": "0.000001",
+   "completion_usd_per_token": "0.000003",
+   "max_model_len": null,
+   "reservation_per_call_usd": "0.109152",
+   "source": "frozen config value (1.00 / 3.00 USD per 1M tokens), matched by the live catalog at batch 3 (05/10/2026, context_length 1048576); checked again at launch (a difference stops with zero sends); context length not reviewed: a catalog value, if present, must be >= 76384. 60000 x 0.000001 + 16384 x 0.000003 = 0.06 + 0.049152"
+  },
+  "nvidia/Nemotron-3_5-Lightning": {
+   "label": "Nemotron 3.5 Lightning",
+   "prompt_usd_per_token": "0.00000006",
+   "completion_usd_per_token": "0.00000024",
+   "max_model_len": null,
+   "reservation_per_call_usd": "0.00753216",
+   "source": "frozen config value (0.06 / 0.24 USD per 1M tokens), matched by the live catalog at batch 3 (05/10/2026, context_length 1048576); checked again at launch (a difference stops with zero sends); context length not reviewed: a catalog value, if present, must be >= 76384. 60000 x 0.00000006 + 16384 x 0.00000024 = 0.0036 + 0.00393216"
+  }
+ },
+ "batch": {
+  "max_cost_usd": null,
+  "max_calls": null,
+  "max_episodes": 30,
+  "technical_retries": null,
+  "max_stage_wall_s": 14400,
+  "note": "No cost, call or retry ceiling. Each send must still have its own reservation; settled costs and uncertain reservations remain recorded. The stage wall time and declared maximum number of episodes remain finite and unchanged."
+ },
+ "episode": {
+  "max_cost_usd": null,
+  "max_model_calls": null,
+  "note": "No cost or model-call ceiling. None / JSON null is explicit, never Infinity or a large sentinel. Agent limits must agree with this policy; request size, timeout and simulator execution budgets remain unchanged."
+ },
+ "cumulative": {
+  "checkpoint_usd": null,
+  "confirmation_file": null,
+  "absolute_stop_usd": null,
+  "note": "No cumulative spending ceiling and no confirmation file is required or consulted. Every token_factory journal row continues to count: actual cost if settled, otherwise its retained reservation. Report spending without using it as an approval gate."
+ }
+}

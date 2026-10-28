@@ -1,0 +1,838 @@
+{
+ "change_counts": {
+  "comments_or_docstrings_only": 51,
+  "identical": 12,
+  "new": 9,
+  "publication_edits": 2,
+  "redacted": 4
+ },
+ "code_and_data": [
+  {
+   "bytes": 6223,
+   "change": "new",
+   "note": "sha256 of the 70 Panda files the simulator needs",
+   "origin": "new",
+   "path": "assets/PANDA_ASSETS.sha256",
+   "sha256": "458570d9fadda0833c65ac363c60c75fafa4c323447b0c681fe9b1eb4c167455"
+  },
+  {
+   "bytes": 2076,
+   "change": "new",
+   "note": "downloads the Panda model at a pinned mujoco_menagerie commit and checks it",
+   "origin": "new",
+   "path": "assets/fetch_panda.sh",
+   "sha256": "b35a9a8049333e9b680488b6486c4673678710c0ad6ab691519fbee6ac4ff56f"
+  },
+  {
+   "bytes": 6436,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "c6923fb7b73e88ad2385bb32b8eb53370031310b0339daa2d7dce45b1cdc8dcf",
+   "origin": "demo_launcher",
+   "path": "demo/choice_prompt.py",
+   "sha256": "39595934ff5df41a1c33204f00c0388a09e82bb08a349c8ca7a55edeeaef89a1",
+   "source_code_ast_sha256": "c6923fb7b73e88ad2385bb32b8eb53370031310b0339daa2d7dce45b1cdc8dcf",
+   "source_sha256": "00b36b2c34a5ec3a28abe73800b9bf272f4fa95eb164bd3b5365d36bbcacd445"
+  },
+  {
+   "bytes": 34211,
+   "change": "publication_edits",
+   "code_ast_sha256": "85a0f7b86e6562f5e9aad2f9803ae12c6151723a7e9417503369bba3182db8bf",
+   "origin": "demo_launcher",
+   "path": "demo/demo_client.py",
+   "publication_edits": [
+    "LAB: the development lab's absolute path replaced by a placeholder inside this package (lab_not_included)",
+    "time zone of the time stamps: UTC instead of the development machine's local zone (the time zone constant is now named TIMEZONE)",
+    "one refusal message: a day-first date replaced by 'an earlier client prepared it'"
+   ],
+   "sha256": "002e3ad607245a92a6c078bccd4717f329b5e94860204f33ce010146425d5c5c",
+   "source_code_ast_sha256": "5f789bb69ca71cbdcb24dbbc3b0329e4588c8e62a1de2c3def7162562ebd640c",
+   "source_sha256": "3fcca929f333cd74ff11c0e8418aeef7f56874253d70c4d4a0d2c45d99280dba"
+  },
+  {
+   "bytes": 1088,
+   "change": "new",
+   "note": "seed registry holding only the demo's kitchen and seed pairs",
+   "origin": "new",
+   "path": "demo/demo_seed_registry.json",
+   "sha256": "99f6263f909949c9e1deed392b3ad7a6f5f26f230127ab99f901779a6cd089d2"
+  },
+  {
+   "bytes": 1344,
+   "change": "identical",
+   "origin": "demo_launcher",
+   "path": "demo/programs/help_v1.bs",
+   "sha256": "2acda61f71701e347b2a4d92ab1415006d21550a6f4f21c58b696c231585d83f",
+   "source_sha256": "2acda61f71701e347b2a4d92ab1415006d21550a6f4f21c58b696c231585d83f"
+  },
+  {
+   "bytes": 4740,
+   "change": "identical",
+   "origin": "demo_launcher",
+   "path": "demo/programs/inspect_v2.bs",
+   "sha256": "7bd777e443d68d3b478e95e2072dd5dfea069defdaa7f7c25d0c275471e44b95",
+   "source_sha256": "7bd777e443d68d3b478e95e2072dd5dfea069defdaa7f7c25d0c275471e44b95"
+  },
+  {
+   "bytes": 5827,
+   "change": "identical",
+   "origin": "demo_launcher",
+   "path": "demo/programs/scrub_v2.bs",
+   "sha256": "65130eabfeeaa6f4d5157674b8c1e7071426e720008ffd5d835935cd201c7ebf",
+   "source_sha256": "65130eabfeeaa6f4d5157674b8c1e7071426e720008ffd5d835935cd201c7ebf"
+  },
+  {
+   "bytes": 25967,
+   "change": "new",
+   "note": "public checks: platform, manifest, Panda files, recorded choices (new code; replaces the original launcher's absolute code-root and 126-file tree check by the relocation rule)",
+   "origin": "new",
+   "path": "demo/public_adapter.py",
+   "sha256": "522039e25e4d2d1dd8f834a9a7d57b8edb4b7854d645ceaea5f96f74229b7f69"
+  },
+  {
+   "bytes": 30777,
+   "change": "publication_edits",
+   "code_ast_sha256": "aaac5cb1eb30dc05f995231e5f6527f9df39a0457ab2f944d4571ac59e6248d2",
+   "origin": "demo_launcher",
+   "path": "demo/run_demo.py",
+   "publication_edits": [
+    "module docstring (its own --help text) rewritten without development history; demo/run_episode.py does not read it",
+    "SEED_TABLE_V2_CONFIRMATION: date written in UTC, the private note's absolute path replaced by a description, section title translated",
+    "seed table sources and statuses: names of private review notes and day-first dates removed",
+    "two --help strings: names of private review notes removed",
+    "the prepare-mode message: a person's name and a review label replaced by 'the operator'",
+    "the default output folder's date: taken in UTC, through demo_client.TIMEZONE",
+    "the reviewer's name in the seed table status, decision record and refusal reason replaced by 'review' (the seed tables were confirmed in a review by an AI coding assistant)",
+    "LIVE_REGISTRY, the original command line's default --registry: the file name of the development seed registry replaced by a placeholder name (the registry is not part of this package; run_episode.py does not use this default)",
+    "the ledger description in DEMO_IDENTITY.json: the development spending journal's file name replaced by a description"
+   ],
+   "sha256": "c8dc61d3f4a4187931ce25f5793d82c36c4e6b1da6fcf6c8c342019e5d71582d",
+   "source_code_ast_sha256": "1ee5d1b4a6dc2ee6518d0b63f4fdd28480ff48b86a1a7287d9e90d1b36d101f2",
+   "source_sha256": "b80431f79c78af2480ad8463599b43424f1cb12b025d9a9f581ae0275c7c11bb"
+  },
+  {
+   "bytes": 14132,
+   "change": "new",
+   "note": "public entry point: one situation, offline, into a new folder (new code; replaces the original launcher's fixed lab paths)",
+   "origin": "new",
+   "path": "demo/run_episode.py",
+   "sha256": "b957510765b927b4586f64595acec022f783f9f6d21a892f0e14b8c153f7fe71"
+  },
+  {
+   "bytes": 16298,
+   "change": "new",
+   "note": "facts of the three recorded episodes, for comparison",
+   "origin": "new",
+   "path": "recorded_choices/RECORDED_EPISODE_FACTS.json",
+   "sha256": "5d33806647890097273dffeb5d921eac0d078347f59ce85ebaebfad6347f0e53"
+  },
+  {
+   "bytes": 3831,
+   "change": "new",
+   "note": "how the public record was derived from the original files",
+   "origin": "new",
+   "path": "recorded_choices/in_place_A4/PROVENANCE.json",
+   "sha256": "c3883fd83ed98e8b0cb11234d8180cd332dafb8f91be40d42a61f56226c45d04"
+  },
+  {
+   "bytes": 2477,
+   "change": "redacted",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/in_place_A4/choice_call.json",
+   "redacted_fields": [
+    "authorization_id",
+    "choice_dir",
+    "code_root",
+    "marker",
+    "journal_row",
+    "ledger.envelope.authorization_id",
+    "ledger.journal"
+   ],
+   "sha256": "9b3b388fd5361541297b32a5f2f47691b0eeee1c15fe324ec4f1d0afaf3da382",
+   "source_sha256": "540a4cfbfcc417725008ceda0a98607099da4a43aba334907ba17672947636e0"
+  },
+  {
+   "bytes": 4442,
+   "change": "redacted",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/in_place_A4/choice_request.json",
+   "redacted_fields": [
+    "code_root"
+   ],
+   "sha256": "51f0091badc38b8edf0602744ae3b34f7e98c60e0b623980cd5566aea45b7aec",
+   "source_sha256": "a7975227723467f23caa57b7fad5ef48f557b22e22e11c49b07a3a8f3fa73431"
+  },
+  {
+   "bytes": 65,
+   "change": "identical",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/in_place_A4/choice_request.sha256",
+   "redacted_fields": [],
+   "sha256": "0b13a46b2ef60dde0ee25a1aae794fac4ef455b444dc4bcbf35ab468b708a6d4",
+   "source_sha256": "0b13a46b2ef60dde0ee25a1aae794fac4ef455b444dc4bcbf35ab468b708a6d4"
+  },
+  {
+   "bytes": 1786,
+   "change": "identical",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/in_place_A4/choice_response.json",
+   "redacted_fields": [],
+   "sha256": "e23d5c754f1bd0b2f6ac28af674c8e2cb6f10c415ccd7025c943292c174bad61",
+   "source_sha256": "e23d5c754f1bd0b2f6ac28af674c8e2cb6f10c415ccd7025c943292c174bad61"
+  },
+  {
+   "bytes": 655,
+   "change": "identical",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/in_place_A4/client_ops.jsonl",
+   "redacted_fields": [],
+   "sha256": "0d815793f79f02a89d467a1bdef6882e1d5cdcb979bfb8a06c2ce9f8d43e9e4f",
+   "source_sha256": "0d815793f79f02a89d467a1bdef6882e1d5cdcb979bfb8a06c2ce9f8d43e9e4f"
+  },
+  {
+   "bytes": 3828,
+   "change": "new",
+   "note": "how the public record was derived from the original files",
+   "origin": "new",
+   "path": "recorded_choices/moved_A1/PROVENANCE.json",
+   "sha256": "7adb3df6b284b055607a6b20f2c31a4f5d061ea8867ad4a61e4f9c1353121ee9"
+  },
+  {
+   "bytes": 2479,
+   "change": "redacted",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/moved_A1/choice_call.json",
+   "redacted_fields": [
+    "authorization_id",
+    "choice_dir",
+    "code_root",
+    "marker",
+    "journal_row",
+    "ledger.envelope.authorization_id",
+    "ledger.journal"
+   ],
+   "sha256": "700458460e5a37782c277f9ab20caf08ae9a39b8d47e2bb0ee07d2ddd9904e29",
+   "source_sha256": "e92ef54b89992932e9d16e2a3680f8518e3bc5b1125f5eee9498176c9beba02b"
+  },
+  {
+   "bytes": 4545,
+   "change": "redacted",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/moved_A1/choice_request.json",
+   "redacted_fields": [
+    "code_root"
+   ],
+   "sha256": "6fc746d8cb943044100129ba2b1d8a06f3bfdf2186fad8de179877362ea3014c",
+   "source_sha256": "d320462d537db4acf4231ecf1a39561a1107eea73c7a12238a1f808dc51a26d9"
+  },
+  {
+   "bytes": 65,
+   "change": "identical",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/moved_A1/choice_request.sha256",
+   "redacted_fields": [],
+   "sha256": "9b1220a77a393c4c07ea9e3aba683c00ea219613106420b639ee3be5b151ef1e",
+   "source_sha256": "9b1220a77a393c4c07ea9e3aba683c00ea219613106420b639ee3be5b151ef1e"
+  },
+  {
+   "bytes": 2576,
+   "change": "identical",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/moved_A1/choice_response.json",
+   "redacted_fields": [],
+   "sha256": "bbbe1ca59a49d20019ca73580f6c08b7505475074e092853d0e524eba73ae919",
+   "source_sha256": "bbbe1ca59a49d20019ca73580f6c08b7505475074e092853d0e524eba73ae919"
+  },
+  {
+   "bytes": 657,
+   "change": "identical",
+   "origin": "recorded_choice",
+   "path": "recorded_choices/moved_A1/client_ops.jsonl",
+   "redacted_fields": [],
+   "sha256": "aef88425ea6670d99f9efb4c4319849e354ed57d4a2bcd484a06fc1e98500253",
+   "source_sha256": "aef88425ea6670d99f9efb4c4319849e354ed57d4a2bcd484a06fc1e98500253"
+  },
+  {
+   "bytes": 313,
+   "change": "new",
+   "note": "pinned Python packages",
+   "origin": "new",
+   "path": "requirements.txt",
+   "sha256": "2a31e1d6c3d9c412a7ff92e48c66d05904e69f123fdab8014aa0d119f33cc87c"
+  },
+  {
+   "bytes": 296,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "origin": "snapshot",
+   "path": "siteagent/__init__.py",
+   "sha256": "7b5c82d0faddd3dceeb9dfd420420d8b3838e13f4276960a5c7b595f266b1fb7",
+   "source_code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "bytes": 1227,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "origin": "snapshot",
+   "path": "siteagent/agent/__init__.py",
+   "sha256": "c6f0a6ff75fe6d85ff01f7bae5929c0c57664d8f7de77fed75a67c0db041a905",
+   "source_code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "source_sha256": "f796825a82e7759cf3d00147f136e9f90e44824677e2e0995d88bc5a95c984e9"
+  },
+  {
+   "bytes": 3547,
+   "change": "identical",
+   "origin": "snapshot",
+   "path": "siteagent/agent/agent_limits_s5_v0_8.json",
+   "sha256": "c763ebc07f093606ab2ed03e6a9f693bad47731b5b1a2beccb3ac850a1c338c2",
+   "source_sha256": "c763ebc07f093606ab2ed03e6a9f693bad47731b5b1a2beccb3ac850a1c338c2"
+  },
+  {
+   "bytes": 48006,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "ee75cc661825f7ef5f0675d1f5bbc25d494cdb37760af375d4538e03d9fc8760",
+   "origin": "snapshot",
+   "path": "siteagent/agent/api.py",
+   "sha256": "4578acb1f9158bd547088546142828cc925aa8846a2bb9bf4f2738ef0397c7a6",
+   "source_code_ast_sha256": "ee75cc661825f7ef5f0675d1f5bbc25d494cdb37760af375d4538e03d9fc8760",
+   "source_sha256": "9f5bdc0c00b8cf207a5483a23cc9a282c72dd40a0d5e41e1f880d4d5a8e6facd"
+  },
+  {
+   "bytes": 35045,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "a870a6f53d3ef2d20bc3dae693e47e218fac78e2b461931255bf5ff40ea766d5",
+   "origin": "snapshot",
+   "path": "siteagent/agent/bench_agent.py",
+   "sha256": "a6bebaad93e09e4103c42b1ebc41e6eeb7e4db496ff93fee3b86105a796c3f12",
+   "source_code_ast_sha256": "a870a6f53d3ef2d20bc3dae693e47e218fac78e2b461931255bf5ff40ea766d5",
+   "source_sha256": "bbc10d2f26e0da18e2af3d3bac4effee442e1f37c9a0e4d340d87af12512060c"
+  },
+  {
+   "bytes": 229337,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "a8e1116d1a8d1d55a98543f321225f0673ae57b86c0509ddbf6641d2584a442e",
+   "origin": "snapshot",
+   "path": "siteagent/agent/host.py",
+   "sha256": "9c92fb82ded3a6a1d78f998f930e67d28080e4c5654c8124fdb2dc958c66a432",
+   "source_code_ast_sha256": "a8e1116d1a8d1d55a98543f321225f0673ae57b86c0509ddbf6641d2584a442e",
+   "source_sha256": "48c87fea9a4a2e505df3013751c306bf1e7e496fcbdb14ba2c3542686ec72fc8"
+  },
+  {
+   "bytes": 43127,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "7752870141380d1a160ce10702ed6956ad3045f6a6c071980ded3fc2c3854a6a",
+   "origin": "snapshot",
+   "path": "siteagent/agent/interp.py",
+   "sha256": "648005ed671ba933df587b450bcd615c5cae5b3b687385e78845d2238acc7605",
+   "source_code_ast_sha256": "7752870141380d1a160ce10702ed6956ad3045f6a6c071980ded3fc2c3854a6a",
+   "source_sha256": "d97543156cc404fbdd449a0850fe561cced43d0b944188060a2fe23275220a02"
+  },
+  {
+   "bytes": 83539,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "5c810f39a6aed60c1275233ea38ea71fa988913c5e2d1018296c291ac5875197",
+   "origin": "snapshot",
+   "path": "siteagent/agent/lang.py",
+   "sha256": "05cb74c5b05faa04fdcf910f9b2ccbfb9e4e323e6f37e1d9936d5afc5a42e42c",
+   "source_code_ast_sha256": "5c810f39a6aed60c1275233ea38ea71fa988913c5e2d1018296c291ac5875197",
+   "source_sha256": "cd0cdf9f3967b5eacdf3fe6f1efc2a3f3bf6df05df02177ace4ed6cea8882fc3"
+  },
+  {
+   "bytes": 14846,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "5e925a80fa360276f27f1058482c11a5d672b243cf7112e76280a3aea0ceb632",
+   "origin": "snapshot",
+   "path": "siteagent/agent/ledger.py",
+   "sha256": "9ea31de8bff55a343821e9478cb6ce377831270f68817b4267524e107d2ecf56",
+   "source_code_ast_sha256": "5e925a80fa360276f27f1058482c11a5d672b243cf7112e76280a3aea0ceb632",
+   "source_sha256": "1e5fa648d99fd0ec7ebe904325ac943db97e2c8ee03b0e0141859d249e06938f"
+  },
+  {
+   "bytes": 7498,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "93dbf3c0ebfdefa445d04ce7fa058d5d85baa0355702346b81f9f04ad8d09d81",
+   "origin": "snapshot",
+   "path": "siteagent/agent/limits.py",
+   "sha256": "05cf39e15851ab18fabcfd5d01b68b71bfeb35a0b1a4b4fabce7c43216dce092",
+   "source_code_ast_sha256": "93dbf3c0ebfdefa445d04ce7fa058d5d85baa0355702346b81f9f04ad8d09d81",
+   "source_sha256": "02296c5880bf307f0a1513891ad0ad55c7fe8d8fe11e6ad350501d9101db4062"
+  },
+  {
+   "bytes": 5159,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "144d6f515922eeca3ab24b7fa8f9b25eea5d845a1ef5b90e6b20aa271aa5f92a",
+   "origin": "snapshot",
+   "path": "siteagent/agent/llm.py",
+   "sha256": "9e1e04c9ab80ec3524e269ef1484a448c9c47d796120a9944ebd05de2c29ba19",
+   "source_code_ast_sha256": "144d6f515922eeca3ab24b7fa8f9b25eea5d845a1ef5b90e6b20aa271aa5f92a",
+   "source_sha256": "17f14f668bc75579d7cebb3826c046fc4f31d08d59384473559d342d98e8f17b"
+  },
+  {
+   "bytes": 124082,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "0fad35adc1df631f147fa6a2d9eeabe7a1f476eb29ea534261b0c85dbc590392",
+   "origin": "snapshot",
+   "path": "siteagent/agent/loop.py",
+   "sha256": "67375e4f5244308c21654b5393678b4f3aa717347c46936d4771ae6ce77d5d27",
+   "source_code_ast_sha256": "0fad35adc1df631f147fa6a2d9eeabe7a1f476eb29ea534261b0c85dbc590392",
+   "source_sha256": "7ff75067fccb3a2378984cf8a047c5a15b5de5ce9aabc2239d340fa0638b5dbc"
+  },
+  {
+   "bytes": 40697,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "908b98dc94fc0412f2b8c78e02ca0ad9614c0d98556f5060a86df8862c2d71b4",
+   "origin": "snapshot",
+   "path": "siteagent/agent/memory.py",
+   "sha256": "c4b5a9c06a31b20f5929b66a8a2017358995bac7d8495dee6377396a49ca8db5",
+   "source_code_ast_sha256": "908b98dc94fc0412f2b8c78e02ca0ad9614c0d98556f5060a86df8862c2d71b4",
+   "source_sha256": "839f58730d27cf56e50447eb372a02caf0a6263a749ce2f9c3998ec7d7b864ff"
+  },
+  {
+   "bytes": 8445,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "a69aa94fbf528af4b8e82d152d9583048e9245b706c074570fd829c969f85a07",
+   "origin": "snapshot",
+   "path": "siteagent/agent/mock_policy.py",
+   "sha256": "f6f058545606c5f46d28bb27e58b2bf23c277cc85f81cfd95fd758632839eb74",
+   "source_code_ast_sha256": "a69aa94fbf528af4b8e82d152d9583048e9245b706c074570fd829c969f85a07",
+   "source_sha256": "a7a6dac0fc0e5e92663e6697f9413ebdb09195c29b0be97205b92d3ee6692e46"
+  },
+  {
+   "bytes": 111473,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "07c4b9d7de3c92365b3010cd7203bf1de4d8cd0e5adcc64b5786fa1bc95c4744",
+   "origin": "snapshot",
+   "path": "siteagent/agent/prompt.py",
+   "sha256": "f6b9ac1a26d5a04c810f36d6310aaf0efc530a8962cb4153b849353fd042ad2b",
+   "source_code_ast_sha256": "07c4b9d7de3c92365b3010cd7203bf1de4d8cd0e5adcc64b5786fa1bc95c4744",
+   "source_sha256": "b680b62057c07e995eb630f81a360821c48ec3d6a6e4cdf8ac58a89c5e272d39"
+  },
+  {
+   "bytes": 25172,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "30190e66a55b87e5e609d8f6314010be9ce625c58e784a5dfdf0c35fe9c1de8c",
+   "origin": "snapshot",
+   "path": "siteagent/agent/real_client.py",
+   "sha256": "60760271b470813b82ac4155a3f013429f6b4f552c143e4780dc48e637b98146",
+   "source_code_ast_sha256": "30190e66a55b87e5e609d8f6314010be9ce625c58e784a5dfdf0c35fe9c1de8c",
+   "source_sha256": "a0a116332f8b42573c5fbbf57078c1ea6146a4c837c91195259166e570c81174"
+  },
+  {
+   "bytes": 27610,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "b9e75cb15b88983d9a45548c257c8cf9e40466680c6940433427cb2e88a320d0",
+   "origin": "snapshot",
+   "path": "siteagent/agent/sandbox.py",
+   "sha256": "28ef8ceda2b093d3fb064ba72d45fc3ed7489f61b8499cea15ace3f53057b65c",
+   "source_code_ast_sha256": "b9e75cb15b88983d9a45548c257c8cf9e40466680c6940433427cb2e88a320d0",
+   "source_sha256": "aa639f9f988d59c5ed87b14fabb0e2db094a537ca7a89d89a1e819635f763f7b"
+  },
+  {
+   "bytes": 5583,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "e1010fe094bfba0761ef85d4f08c45eb821e5f550375d1e9161263c106c28fde",
+   "origin": "snapshot",
+   "path": "siteagent/agent/sandbox_child.py",
+   "sha256": "f081e9da11fc7e6ca7abd000c4af0bfdb03c092415c8e81e6d283975d7b3d74b",
+   "source_code_ast_sha256": "e1010fe094bfba0761ef85d4f08c45eb821e5f550375d1e9161263c106c28fde",
+   "source_sha256": "8ea732e199539bc5a411d4bb98d027c16511c16ee666d7fe8f46c731ea9e649b"
+  },
+  {
+   "bytes": 17016,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "6c87a51eb600a435266e9ce3eefb28ed15ed6b59e39d04a4459fa5cfa3b88d8f",
+   "origin": "snapshot",
+   "path": "siteagent/bench_task.py",
+   "sha256": "83f4ebf4546972db4a87cefd3d20146deb5241214fbdf0b71088e1d6af469ed1",
+   "source_code_ast_sha256": "6c87a51eb600a435266e9ce3eefb28ed15ed6b59e39d04a4459fa5cfa3b88d8f",
+   "source_sha256": "310c6ca6ff566e2a1db3cdfcacc2549e1a248c40dbd0af948c27e6807db971ab"
+  },
+  {
+   "bytes": 8850,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "07d186bffe0be278fe38e6f5eb20f7ab1102bf44328efa10045d11a571550669",
+   "origin": "snapshot",
+   "path": "siteagent/checks.py",
+   "sha256": "723f0974d38e6d5dffec454238c0bf015b157f1c384e3a8e08f0dde121bd4b21",
+   "source_code_ast_sha256": "07d186bffe0be278fe38e6f5eb20f7ab1102bf44328efa10045d11a571550669",
+   "source_sha256": "890c7e0c930f21539b266713dc8c67f648d0e57f11f98322f6c4ab9bbb29542f"
+  },
+  {
+   "bytes": 4364,
+   "change": "identical",
+   "origin": "snapshot",
+   "path": "siteagent/config/agent_budget_v4.json",
+   "sha256": "847e18741e09a5f01ae2b781bb01519ed7a13ff95be496bc46dbb4b351470b1d",
+   "source_sha256": "847e18741e09a5f01ae2b781bb01519ed7a13ff95be496bc46dbb4b351470b1d"
+  },
+  {
+   "bytes": 12520,
+   "change": "identical",
+   "origin": "snapshot",
+   "path": "siteagent/config/task_criteria_v1_4.json",
+   "sha256": "4fb44a1a9ead2ebc22ff67084c9a8e06441c64ea90ef0921e56fe75d56679dcf",
+   "source_sha256": "4fb44a1a9ead2ebc22ff67084c9a8e06441c64ea90ef0921e56fe75d56679dcf"
+  },
+  {
+   "bytes": 5580,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "c7236c7105a5d646ca171dd6e272079bb58cd0825b4591489f590aa171515742",
+   "origin": "snapshot",
+   "path": "siteagent/feedback.py",
+   "sha256": "70d17a96861643541e364d055b9e6e6f5f4b3d8d0af03e099d39ae9ea993a1e6",
+   "source_code_ast_sha256": "c7236c7105a5d646ca171dd6e272079bb58cd0825b4591489f590aa171515742",
+   "source_sha256": "3a94430bab09f47872190e19ceb8813c39a039e40037e159198be7e1e8fb5b41"
+  },
+  {
+   "bytes": 374,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "f16ee59d870ec4d90b9c9f7c5875f54e93181a2c1f604ac18f42971c01fce03f",
+   "origin": "snapshot",
+   "path": "siteagent/perception/__init__.py",
+   "sha256": "389b2c689221d1356429ce3412c46d002082dcc1986c524d0f480efa38e6b144",
+   "source_code_ast_sha256": "f16ee59d870ec4d90b9c9f7c5875f54e93181a2c1f604ac18f42971c01fce03f",
+   "source_sha256": "9afc78f469e1b3223c4e1d8426f1b8bd2a860603db6b99512a49e3ae3c00a769"
+  },
+  {
+   "bytes": 5916,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "a00f1965ede5faa0cf76db88df16a11ae98a972c69dde9554ac66eee72d15d38",
+   "origin": "snapshot",
+   "path": "siteagent/perception/catalog.py",
+   "sha256": "e8f2e6bb26312fdd0a631d2e46b0e70f4346b6d1e04db486738032a0556431fa",
+   "source_code_ast_sha256": "a00f1965ede5faa0cf76db88df16a11ae98a972c69dde9554ac66eee72d15d38",
+   "source_sha256": "8f756400d216cdd4a7f2a5e89bee1dfab3d855a5bdf8d0f4bc84f1901f1ba21c"
+  },
+  {
+   "bytes": 6386,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "f33b5c59940a8a9ccb70b83b8414ebf006f3c0fee53fcb091be3fa26cdeedce0",
+   "origin": "snapshot",
+   "path": "siteagent/perception/contract.py",
+   "sha256": "6404bed78d1c842df12fb332cfbd430654eea7a55dd25fb7e195313d7c466525",
+   "source_code_ast_sha256": "f33b5c59940a8a9ccb70b83b8414ebf006f3c0fee53fcb091be3fa26cdeedce0",
+   "source_sha256": "1bc374020ba30a6269ced1b8516547ec16a96f3a70875ac930dbddb3288e3549"
+  },
+  {
+   "bytes": 123815,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "7ce6753295205968a5b43c798e8aead56cce0214ba67d8c20cf5343599e6c626",
+   "origin": "snapshot",
+   "path": "siteagent/perception/estimate.py",
+   "sha256": "6ce7ad91761a6f3111db1d6c7495749b9d9b71a6d9ac8d313125d8e0e44b4bba",
+   "source_code_ast_sha256": "7ce6753295205968a5b43c798e8aead56cce0214ba67d8c20cf5343599e6c626",
+   "source_sha256": "ad5c1d21c578d16b8e0579d6fe6fc418a35b15c66e43400e5edc187b65d53d0f"
+  },
+  {
+   "bytes": 10392,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "9425a22758679b9b21c39c6ce1fd0fbd3d1f7d76ef64e1f835b035ba55709561",
+   "origin": "snapshot",
+   "path": "siteagent/perception/overhead.py",
+   "sha256": "f70cee1b7451d01e58074bf680fba67d8f9d2b1219f0bedceb84480602942270",
+   "source_code_ast_sha256": "9425a22758679b9b21c39c6ce1fd0fbd3d1f7d76ef64e1f835b035ba55709561",
+   "source_sha256": "58aa3798f923f07d47f030a636d1d7161fe3f4d2d7d60494c4791d67996b2f60"
+  },
+  {
+   "bytes": 10441,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3a88f64843f6192b6bdfe908ff7b124a1135d480a410fbd873d890545415cdaf",
+   "origin": "snapshot",
+   "path": "siteagent/perception/sensor.py",
+   "sha256": "843c8760059a1366d44add76d4c2efdf688c704e3e30e67b88f38431dd7d156d",
+   "source_code_ast_sha256": "3a88f64843f6192b6bdfe908ff7b124a1135d480a410fbd873d890545415cdaf",
+   "source_sha256": "1c5f46d9033331ee8e7ae522ef622107e7d29a790f27914f0316688d21153a49"
+  },
+  {
+   "bytes": 17130,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "01a5636ecda68158c5955ab6a2d03ae98a458d0387125e84dc75ba8b8010f343",
+   "origin": "snapshot",
+   "path": "siteagent/perception/upright_faces.py",
+   "sha256": "00ce6dd070dc431f39e9e3a925aeeffb877d113feb1faefac8d951ccbc889f32",
+   "source_code_ast_sha256": "01a5636ecda68158c5955ab6a2d03ae98a458d0387125e84dc75ba8b8010f343",
+   "source_sha256": "0259b44efbb92e272e1808e7545a789fcbf28e406dafa798dad0f0993748c546"
+  },
+  {
+   "bytes": 1233,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "origin": "snapshot",
+   "path": "siteagent/programs/__init__.py",
+   "sha256": "467c348be207b5e189f1d4ae33b10dba0c12695f459d44fb3c79e59ca18b440f",
+   "source_code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "source_sha256": "b2f857304411915dbe1792e0ea08f49b2670eb5f5fafb10983ecfa5fae07548c"
+  },
+  {
+   "bytes": 6045,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3b3cb29e1c517bfff2834a1c0ace1ac7d9bb45599e4f34eed3ce0a4a982a9ae3",
+   "origin": "snapshot",
+   "path": "siteagent/programs/facade.py",
+   "sha256": "8316cc49a54cc46e3515cd65fdb5ce50e835c12225e6c52300ba9dcc0ef1e916",
+   "source_code_ast_sha256": "3b3cb29e1c517bfff2834a1c0ace1ac7d9bb45599e4f34eed3ce0a4a982a9ae3",
+   "source_sha256": "eb6798233884fe1cb732706a6317a6cb25d992666dfd704d771f1f9ef8ad6a46"
+  },
+  {
+   "bytes": 2165,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "941aaedc421d2c64c1b5bb5728ae2ef84b48ca8177b8fe1a8d04b43869331151",
+   "origin": "snapshot",
+   "path": "siteagent/programs/fixed_reference.py",
+   "sha256": "965d8008ecf7251e0c6b321589619209fe92afb7daec45ae43afefe6ff8c6dfb",
+   "source_code_ast_sha256": "941aaedc421d2c64c1b5bb5728ae2ef84b48ca8177b8fe1a8d04b43869331151",
+   "source_sha256": "11a937efa3ee88584f114ab157c616325ca76e8b17c82af156530273883cf3c5"
+  },
+  {
+   "bytes": 3276,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "8bf234fe54143a44974ef4048bc55db84c5027b9b004ba4ca7922d94c00e548f",
+   "origin": "snapshot",
+   "path": "siteagent/programs/scripted_chain.py",
+   "sha256": "a9ceccef318d63af6313a115ceecbe21c54b94a58bd60612529fc4d7c9d26960",
+   "source_code_ast_sha256": "8bf234fe54143a44974ef4048bc55db84c5027b9b004ba4ca7922d94c00e548f",
+   "source_sha256": "bbd2571889388622fd73bf6946fb3efac6f693125a784e04da7d512676556bba"
+  },
+  {
+   "bytes": 89,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "origin": "snapshot",
+   "path": "siteagent/robot/__init__.py",
+   "sha256": "bd3d8ef233e16b283352847fd7a267158aa29bcf4bd6ec6bea58115047df4311",
+   "source_code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "source_sha256": "4558570736c30958a56c629fd8b63243bdd08853c6552c97200ccba7a5e5e2da"
+  },
+  {
+   "bytes": 3909,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "23acf17736e5b9777161f3baf821a5b1e3abe2f268bc72895abbcdf5467b731d",
+   "origin": "snapshot",
+   "path": "siteagent/robot/belief.py",
+   "sha256": "b5e011ec4b528aa1841ca9979ede68c9a80382cc72473d40b0e2fa6546ef4499",
+   "source_code_ast_sha256": "23acf17736e5b9777161f3baf821a5b1e3abe2f268bc72895abbcdf5467b731d",
+   "source_sha256": "25d0345a409a35bad91563b30f05e88fcdd1362413c7ce68046290d233cf4be8"
+  },
+  {
+   "bytes": 2041,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "e7bc43109055d400f44aaeedfa8c4bba11c5c0245be3ec0a348061a0d722557b",
+   "origin": "snapshot",
+   "path": "siteagent/robot/design.py",
+   "sha256": "cb489546b4ff7d9bdcdb25a78a3d6c8c6b24618f74ac35d044e75a89773febc5",
+   "source_code_ast_sha256": "e7bc43109055d400f44aaeedfa8c4bba11c5c0245be3ec0a348061a0d722557b",
+   "source_sha256": "95d3f8e467c929df598cdb9903833534fd7a668f41656d78c4e48beb8f9323e0"
+  },
+  {
+   "bytes": 12525,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "8ca5af475f83833e899232b1d7a41ec3d1621d921ffc2cd4d10570b62df8c856",
+   "origin": "snapshot",
+   "path": "siteagent/robot/kinematics.py",
+   "sha256": "333624b2785b18e4c95ae9c5f5df20123270257d2d4f83f4f285bf2a1806a866",
+   "source_code_ast_sha256": "8ca5af475f83833e899232b1d7a41ec3d1621d921ffc2cd4d10570b62df8c856",
+   "source_sha256": "edcd58039c5841fb4083840bac6b504cdd9f249fed5fc281d4dfd7640d728e65"
+  },
+  {
+   "bytes": 128088,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "84591be51e653b88a3fe6bb4bdc895de504037168c3e14763a30eb0ab51e0e80",
+   "origin": "snapshot",
+   "path": "siteagent/robot/skills.py",
+   "sha256": "a3576adce1e6bad1667b743ca8969c3966769e1c52ffe51685c52cf3488bf99e",
+   "source_code_ast_sha256": "84591be51e653b88a3fe6bb4bdc895de504037168c3e14763a30eb0ab51e0e80",
+   "source_sha256": "ac4438e1ec6002e44b6d3fd4f20510142f1869ba122d7af75b0de73b198085a1"
+  },
+  {
+   "bytes": 54197,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "63c27f0fab23365c57986c4fae0d8230a0bf9aa685b382a4952fb618d530ade2",
+   "origin": "snapshot",
+   "path": "siteagent/search.py",
+   "sha256": "ef63bbc004add40bcef529321584b9264fb742c2ba5e342ff4367cc2593a75df",
+   "source_code_ast_sha256": "63c27f0fab23365c57986c4fae0d8230a0bf9aa685b382a4952fb618d530ade2",
+   "source_sha256": "9c0f6d5fe3d2b16720841b6ecb0bf27043c6430ffe18e3db127e23a9c850dc58"
+  },
+  {
+   "bytes": 10126,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "8e559f1b1584d5dcfdff18f7eb5b4870dffe70b3397187ae9b8e76030005954d",
+   "origin": "snapshot",
+   "path": "siteagent/sim.py",
+   "sha256": "1c7e472cac3ba91149e6aed6ad4e106600195d55f8469035ce9b1e88fb1150c4",
+   "source_code_ast_sha256": "8e559f1b1584d5dcfdff18f7eb5b4870dffe70b3397187ae9b8e76030005954d",
+   "source_sha256": "a2116fc94c44f0d310a79ad1aca888c6db5a3e06db9201d1b9916e02cdae656b"
+  },
+  {
+   "bytes": 672,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "04fac6dd99bbbd525dace3ecfd43932e07d368ceb0fbf67a78c2dfdcd9053f59",
+   "origin": "snapshot",
+   "path": "siteagent/site_plan.py",
+   "sha256": "5c967017bd92b6094d39bf4ec60e052159dd414428ef69c02a72a1741b70da79",
+   "source_code_ast_sha256": "04fac6dd99bbbd525dace3ecfd43932e07d368ceb0fbf67a78c2dfdcd9053f59",
+   "source_sha256": "275f72d9c33aff6cb1fc22b2e388fe238230bd29bce9e06ded9ebb6f7e5f946a"
+  },
+  {
+   "bytes": 31474,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "fda97d43f434069596e0a0f5117b56cbce8a00bcd563367221d0c28b288d6c46",
+   "origin": "snapshot",
+   "path": "siteagent/sitemodel.py",
+   "sha256": "d3bcbc83f90cd43536e6598bb798b17d59a6761aae274434dff81767bd6559b8",
+   "source_code_ast_sha256": "fda97d43f434069596e0a0f5117b56cbce8a00bcd563367221d0c28b288d6c46",
+   "source_sha256": "0e8c26a18a3986af58de208f48cbeb0172979bfb7915961edca715f8e2b47bfb"
+  },
+  {
+   "bytes": 40315,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "a73138b227ef1d26e19ca9bcf1acb583ef18eb3b4ab0e743b81b2e2ed696de1f",
+   "origin": "snapshot",
+   "path": "siteagent/taskcheck.py",
+   "sha256": "1287be4855110ce8f4d92fa658e9df443cf8f7e863369f0eb47dfc20281228e5",
+   "source_code_ast_sha256": "a73138b227ef1d26e19ca9bcf1acb583ef18eb3b4ab0e743b81b2e2ed696de1f",
+   "source_sha256": "137ee37df171f971bc639278567f3a84eab80fc57662f2c91ef63cb689f69b79"
+  },
+  {
+   "bytes": 190,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "b97d104658c605d847a2ebbe3a519eeaf8318a2ff059f4c053f44db82202852d",
+   "origin": "snapshot",
+   "path": "siteagent/world/__init__.py",
+   "sha256": "cffc4de4089c47c507e0eaa481fb2f381e092efd43581540f08ca5f32be5d681",
+   "source_code_ast_sha256": "b97d104658c605d847a2ebbe3a519eeaf8318a2ff059f4c053f44db82202852d",
+   "source_sha256": "6a8a18060018872019740fc8759bc4ac73e0a084afcc4645027eec3f4e8773c9"
+  },
+  {
+   "bytes": 24911,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "85c97f5974f12d38714de4bae518c82009a7c8c4d3c033c450c14717d0a5ebd6",
+   "origin": "snapshot",
+   "path": "siteagent/world/build.py",
+   "sha256": "5ff4b1d00aed0942b276976a96f7aa66298ca2d254cfa9241eb86b545376fae8",
+   "source_code_ast_sha256": "85c97f5974f12d38714de4bae518c82009a7c8c4d3c033c450c14717d0a5ebd6",
+   "source_sha256": "68a54b6920df3b4cd5c99047a5125a7ae2281a8586892f38409e891da840e3b6"
+  },
+  {
+   "bytes": 8199,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "2af9ee0ebe18099e566975788827dcec5fc8acb79a2b82462160899660609ffd",
+   "origin": "snapshot",
+   "path": "siteagent/world/spec.py",
+   "sha256": "d4323c73091cec79d85092d33fa65ae52a84de38de085d9f6e842526b57045de",
+   "source_code_ast_sha256": "2af9ee0ebe18099e566975788827dcec5fc8acb79a2b82462160899660609ffd",
+   "source_sha256": "34d94beca61db20ad0e3f50b311170964c060c4831fa43ba91bb7c5459c4d761"
+  },
+  {
+   "bytes": 1767,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "59dd4d953ed5fd071710ffb60beeaefdd0d9d8ef109a3749815b7d44beb48048",
+   "origin": "snapshot",
+   "path": "siteagent/world/task_setup.py",
+   "sha256": "af860bfedcfe6376b9bfbeefcac50bc3fb7a48043a224110668c4681d0ca919d",
+   "source_code_ast_sha256": "59dd4d953ed5fd071710ffb60beeaefdd0d9d8ef109a3749815b7d44beb48048",
+   "source_sha256": "737f4e0fb69079fb9756bc72203b358edd8f058fedc35143b091badb91951117"
+  },
+  {
+   "bytes": 3783,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "fac6c512cc02a7beb62ac52adaf1703c649484c0923bc0034e3cc7f030429a78",
+   "origin": "snapshot",
+   "path": "siteagent/world/variants.py",
+   "sha256": "bee5c0f7f7db1a6d87d67793927c4124f0a53014a165fd8e5efed5ef775d74f4",
+   "source_code_ast_sha256": "fac6c512cc02a7beb62ac52adaf1703c649484c0923bc0034e3cc7f030429a78",
+   "source_sha256": "aeb51a7dd4cfab9da4ca9668986391776fcca17d8d7e704962688b999566a5bc"
+  },
+  {
+   "bytes": 395,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "origin": "snapshot",
+   "path": "siteagent/world_dev/__init__.py",
+   "sha256": "85eb6579a067658e3fe248965ade1946ceb683f22d4dbb78e6d6683a2823d005",
+   "source_code_ast_sha256": "3543b4693a36a1098850b8bc928887694ed59a6deb7d3dfd0339de01f55a77b6",
+   "source_sha256": "a8e556b331c865f4b53287977f231b1cc24d5d44cb115c1932c4f713987a2314"
+  },
+  {
+   "bytes": 21708,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "ed573693cbaa32390b54717131a91744d18034eab7af5f9df5787e613601ce89",
+   "origin": "snapshot",
+   "path": "siteagent/world_dev/occlusion.py",
+   "sha256": "5c6135fda9d773b90cddeef8f691402e7c8146db448e1df901300461a4590858",
+   "source_code_ast_sha256": "ed573693cbaa32390b54717131a91744d18034eab7af5f9df5787e613601ce89",
+   "source_sha256": "53bee886ff56e260f5201178bc985b6fa11ca8cccc57998459e14c78a58c8408"
+  },
+  {
+   "bytes": 20624,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "a009c2e5bd729c85b88c2c1f57169f4e60652a0978f34708ff3cdc4402598ae8",
+   "origin": "snapshot",
+   "path": "siteagent/world_dev/occlusion2.py",
+   "sha256": "c34306f12fd0e880915b823346f625d1b12af615639a15455accfb294c35495b",
+   "source_code_ast_sha256": "a009c2e5bd729c85b88c2c1f57169f4e60652a0978f34708ff3cdc4402598ae8",
+   "source_sha256": "7a41575f5492d768c675d8e7c35e446984bc1bdf2a4730bc0820f51317de6bdc"
+  },
+  {
+   "bytes": 31324,
+   "change": "comments_or_docstrings_only",
+   "code_ast_sha256": "ee66815ff9f021383591862d80f41f15086d46eafb87c1b769522a2e7ae11eab",
+   "origin": "snapshot",
+   "path": "tf_guardrails.py",
+   "sha256": "65108689287f39be7d65be5b4e6fde9795dac63fb6425ccc228d5a74ffdf4549",
+   "source_code_ast_sha256": "ee66815ff9f021383591862d80f41f15086d46eafb87c1b769522a2e7ae11eab",
+   "source_sha256": "17dad834ef62e99a20d4c8c7c646824a12032164cf707630b52b2de251ad895a"
+  }
+ ],
+ "code_ast_rule": "code_ast_sha256 and source_code_ast_sha256: demo/public_adapter.code_ast_sha256 (Python 3.12 ast.dump of the syntax tree with every Module, class and function docstring removed, without positions; comments never reach the tree). For a robot file declared comments_or_docstrings_only the launcher recomputes it and refuses the run when it differs from source_code_ast_sha256. No file of the robot reads its own docstrings or source at run time. The docstrings read at run time in this folder are argparse descriptions: demo/run_episode.py's (written for this package) and demo/run_demo.py's, which is the --help text of the original command line, rewritten for publication and not read by demo/run_episode.py.",
+ "other_files": [
+  {
+   "bytes": 9371,
+   "note": "how to install and run",
+   "origin": "new",
+   "path": "README.md",
+   "sha256": "c3ff8c18680869d713d23c8798c4a1771cf52b44125e6373c71349f887e3d427"
+  },
+  {
+   "bytes": 9963,
+   "note": "what was run to check this folder, and the results",
+   "origin": "new",
+   "path": "RUN_PROOF.md",
+   "sha256": "21dca07d93d5183842b6f94b6bc5c7472396afe12337fd2a8ae2ff61309cdac4"
+  },
+  {
+   "bytes": 14687,
+   "note": "offline tests of the public checks (standard library unittest)",
+   "origin": "new",
+   "path": "tests/test_public_adapter.py",
+   "sha256": "41fea1800fb1bd5f8f32288840d9b6186163c7eb314b74d545db095b9ea27ef9"
+  }
+ ],
+ "panda_assets": {
+  "commit": "71f066ad0be9cd271f7ed58c030243ef157af9f4",
+  "distributed_here": false,
+  "folder": "franka_emika_panda",
+  "license": "Apache-2.0",
+  "list": "assets/PANDA_ASSETS.sha256",
+  "same_as_snapshot": "the 70 listed files have the same bytes as the snapshot's copy of the model",
+  "upstream": "https://github.com/google-deepmind/mujoco_menagerie"
+ },
+ "schema": "siteshift-public-sim-manifest-1",
+ "source_snapshot": {
+  "files_distributed": 53,
+  "files_not_distributed": 74,
+  "name": "DESIG-4",
+  "not_distributed_by_folder": {
+   "siteagent/agent/": 10,
+   "siteagent/config/": 42,
+   "siteagent/scripts/": 21,
+   "siteagent/world_dev/": 1
+  },
+  "not_distributed_why": "not used by the three situations: campaign and analysis scripts, older limits and criteria versions, batch and pilot manifests, the development seed registry, development worlds not used here, other launchers and stubs",
+  "siteagent_files": 126,
+  "siteagent_tree_sha256": "5fbd3df1f3df536f8717b25ba3dd427fe2ab1c41c65621ef6e39a353e271e599",
+  "tf_guardrails_sha256": "17dad834ef62e99a20d4c8c7c646824a12032164cf707630b52b2de251ad895a",
+  "tree_rule": "sha256 of the canonical JSON [[relative path, sha256]] over the files under siteagent/, sorted, without __pycache__"
+ },
+ "what_this_is": "Every file of this folder, with its sha256 and where it comes from. code_and_data is checked by demo/run_episode.py before every run (demo/public_adapter.verify_distribution); other_files are listed for reference only. origin snapshot: from the frozen code snapshot that produced the recorded episodes; demo_launcher: from the launcher that ran them; recorded_choice: derived from the original record files (see each PROVENANCE.json); new: written for this package. change identical: the same bytes as the source; comments_or_docstrings_only: only comments and docstrings differ from the source, proven by an equal code_ast_sha256 (the file's syntax tree without docstrings, comments or positions, checked again by the launcher for robot files); publication_edits: a launcher file whose listed values were replaced for publication (private folder paths, the time zone of its time stamps, references to private notes, a person's name in a message, the reviewer's name in the seed table records), its logic unchanged; new: no source file. No robot file (origin snapshot) has a changed executable part. The only new code is demo/run_episode.py and demo/public_adapter.py."
+}

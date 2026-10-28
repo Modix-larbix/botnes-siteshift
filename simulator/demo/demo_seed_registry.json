@@ -1,0 +1,27 @@
+{
+ "schema": "siteshift-public-seed-registry-1",
+ "what_this_is": "The kitchen and seeds of the three demo situations, nothing else. The world code (siteagent/world_dev/occlusion.py, refusal) refuses a kitchen that is not listed here and a noise or camera seed that falls in a block of another kitchen. Each entry gives one kitchen (first to last) with its status, and the noise/camera seed pair of one situation (the camera seed is the noise seed plus 1). Written for this package from the demo's own values; the development registry of the original project is not distributed.",
+ "ranges": [
+  {
+   "first": 31000,
+   "last": 31000,
+   "status": "development",
+   "situation": "moved (scene A1)",
+   "noise_seeds": {"first": 960000, "last": 960001}
+  },
+  {
+   "first": 31000,
+   "last": 31000,
+   "status": "development",
+   "situation": "in_place (scene A4)",
+   "noise_seeds": {"first": 960040, "last": 960041}
+  },
+  {
+   "first": 31000,
+   "last": 31000,
+   "status": "development",
+   "situation": "masked (scene A5)",
+   "noise_seeds": {"first": 960050, "last": 960051}
+  }
+ ]
+}

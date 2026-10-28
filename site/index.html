@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Botnes SiteShift</title>
+<meta name="description" content="Change the kitchen, keep the mission: a simulated robot inspects, shows what it saw and what it still has to check, then does the task or asks a person; an evaluator the robot never sees checks the result. Recorded episodes, replayed. Simulation only.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 17V9l8-5 8 5v8l-8 4-8-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 12.5l2.6 2.6L16 9.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <div>
+      <div class="name">Botnes SiteShift</div>
+      <div class="sub">Change the kitchen, keep the mission. Simulation; recorded episodes, replayed.</div>
+    </div>
+  </div>
+  <nav aria-label="Screens">
+    <a href="#/" data-nav="home">Situations</a>
+    <a href="#/trap" data-nav="trap">The trap</a>
+    <a href="#/counters" data-nav="counters">Counters</a>
+    <a href="#/about" data-nav="about">Sources</a>
+  </nav>
+</header>
+<main id="main" tabindex="-1">
+  <noscript><p class="panel">This page needs JavaScript to replay the recorded episodes.</p></noscript>
+  <div id="app" aria-live="polite"></div>
+</main>
+<footer class="pagenote">
+  <p>A separate pilot on an existing, pretrained peg insertion skill, run as a Nebius AI Cloud Serverless Job, is documented in the repository folder assembly_pilot/.</p>
+</footer>
+<footer class="simbar" role="note">
+  <strong>Simulation</strong> (MuJoCo), simulated perception, development kitchens. No physical robot.
+</footer>
+<script src="data/episodes.js"></script>
+<script src="data/frames.js"></script>
+<script src="data/demoA_fixtures.js"></script>
+<script src="data/demoA_rehearsal.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

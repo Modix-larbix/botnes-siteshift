@@ -1,0 +1,89 @@
+{
+ "version": "agent-limits-s5-0.8",
+ "status": "06/10/2026, v4.5 (Claude, Codex R2 review of v4.4 section 3; JOURNAL 06/10/2026 13 h 10, point 3): copy of 0.7 plus two per-episode limits of non-final reprises, both null (no numeric cap): max_help_reviews (reviews of help(kind=search_incomplete)) and max_not_found_refusals (refused not_found claims followed by a correction). Review round of v4.5 (06/10/2026, before any v4.5 manifest): plus reprise_needs_new_observation true, a truth precondition and not a count: a reprise (review or refused not_found) after the first of the episode needs a new robot-side observation since the previous one, else the help stands or the refused not_found ends the episode as help_requested:not_found_unsupported. Kept: the truth preconditions (robot-side search scope, perceived sponge), the robot budgets (a review or a correction needs one more look), the finite episode wall time and the final helps. 0.7 decision of Moad unchanged: no financial or attempt-count caps. Older profiles keep their counts 1 and 2 (agent.limits.REPRISE_DEFAULTS through reprise_limit), no observation precondition and their identity hash; the agent code's review trigger (a perceived sponge not picked) applies under every profile.",
+ "label": "simulation, perception simulee",
+ "program": {
+  "language": "botscript-0.3",
+  "max_source_chars": 12000,
+  "max_ast_nodes": 3000,
+  "max_nesting_depth": 24,
+  "max_steps": 20000,
+  "max_loop_iterations": 200,
+  "max_skill_calls": 60,
+  "max_queries": 400,
+  "max_interpreter_cpu_s": 5.0,
+  "max_wall_s": 1800.0,
+  "max_list_len": 500,
+  "max_str_len": 4000,
+  "max_value_items": 5000,
+  "max_value_depth": 8,
+  "max_int_abs": 1000000000000000,
+  "max_log_lines": 100,
+  "max_functions": 20,
+  "max_call_depth": 16
+ },
+ "episode": {
+  "max_sim_s": 600.0,
+  "max_skill_calls": 200,
+  "max_observations": 40,
+  "max_queries": 2000,
+  "observation_sim_s_nominal": 1.0,
+  "note": "max_sim_s and max_skill_calls repeat the task-criteria-1.1 budget (the bench counts them itself, taskcheck.BenchEvidence). max_observations and observation_sim_s_nominal are PROVISIONAL placeholders: the S4 pre-registration requires fixing them from the scripted chain's declared needs, identical for B and C, before the first S5 run. max_queries (0.2): readings per episode, all corrections included; 2000 = 4 programs x 400 readings plus margin, provisional."
+ },
+ "agent": {
+  "max_model_calls": null,
+  "max_corrections": null,
+  "max_technical_retries_per_run": null,
+  "max_help_reviews": null,
+  "max_not_found_refusals": null,
+  "reprise_needs_new_observation": true,
+  "max_completion_tokens": 16384,
+  "max_prompt_chars": 56000,
+  "temperature": 0,
+  "correct_on": [
+   "parse_error",
+   "refused",
+   "runtime_error",
+   "limit",
+   "give_up"
+  ],
+  "max_episode_wall_s": 3600.0,
+  "max_episode_cost_usd": null,
+  "reasoning_effort": null
+ },
+ "cost": {
+  "note": "No financial caps: siteagent/config/agent_budget_v4.json. Call/correction/retry counters and cost accounting remain enabled. Finite physical and wall-time budgets remain independent."
+ },
+ "changes_from_0_6": {
+  "agent.max_model_calls": [
+   4,
+   null
+  ],
+  "agent.max_corrections": [
+   3,
+   null
+  ],
+  "agent.max_technical_retries_per_run": [
+   1,
+   null
+  ],
+  "agent.max_episode_cost_usd": [
+   "0.45",
+   null
+  ]
+ },
+ "changes_from_0_7": {
+  "agent.max_help_reviews": [
+   1,
+   null
+  ],
+  "agent.max_not_found_refusals": [
+   2,
+   null
+  ],
+  "agent.reprise_needs_new_observation": [
+   false,
+   true
+  ]
+ }
+}

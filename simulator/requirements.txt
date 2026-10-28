@@ -1,0 +1,12 @@
+# Python 3.12 on macOS. Versions of the environment that produced the recorded episodes.
+mujoco==3.14.0
+numpy==2.5.3
+# installed by mujoco 3.14.0, pinned to the same versions
+absl-py==2.5.0
+etils[epath]==1.14.0
+fsspec==2026.9.0
+glfw==2.10.2
+pyopengl==3.1.10
+typing-extensions==4.16.0
+websockets==17.1
+zipp==4.1.0

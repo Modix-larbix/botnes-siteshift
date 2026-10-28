@@ -1,0 +1,81 @@
+{
+ "answer_sha256": "239115c450103173a3aaca1c50a843888ef97d2140556d3b6af17c2be3940ad7",
+ "call_time_utc": "2026-10-20T22:15:00Z",
+ "files": {
+  "choice_call.json": {
+   "change": "redacted",
+   "original_sha256": "540a4cfbfcc417725008ceda0a98607099da4a43aba334907ba17672947636e0",
+   "public_sha256": "9b3b388fd5361541297b32a5f2f47691b0eeee1c15fe324ec4f1d0afaf3da382",
+   "redacted_fields": [
+    {
+     "field": "authorization_id",
+     "why": "identifier of the lab's internal spending authorization (not a credential)"
+    },
+    {
+     "field": "choice_dir",
+     "why": "absolute path of the record folder on that machine"
+    },
+    {
+     "field": "code_root",
+     "why": "absolute path of the snapshot folder on the machine that made the call"
+    },
+    {
+     "field": "marker",
+     "why": "absolute path of the lab's spending-authorization marker file"
+    },
+    {
+     "field": "journal_row",
+     "why": "row number in the lab's private spending journal"
+    },
+    {
+     "field": "ledger.envelope.authorization_id",
+     "why": "identifier of the lab's internal spending authorization (not a credential)"
+    },
+    {
+     "field": "ledger.journal",
+     "why": "the lab's private spending journal summary (cumulative spending of the whole lab)"
+    }
+   ]
+  },
+  "choice_request.json": {
+   "change": "redacted",
+   "original_sha256": "a7975227723467f23caa57b7fad5ef48f557b22e22e11c49b07a3a8f3fa73431",
+   "public_sha256": "51f0091badc38b8edf0602744ae3b34f7e98c60e0b623980cd5566aea45b7aec",
+   "redacted_fields": [
+    {
+     "field": "code_root",
+     "why": "absolute path of the snapshot folder on the machine that made the call"
+    }
+   ]
+  },
+  "choice_request.sha256": {
+   "change": "identical",
+   "original_sha256": "0b13a46b2ef60dde0ee25a1aae794fac4ef455b444dc4bcbf35ab468b708a6d4",
+   "public_sha256": "0b13a46b2ef60dde0ee25a1aae794fac4ef455b444dc4bcbf35ab468b708a6d4",
+   "redacted_fields": []
+  },
+  "choice_response.json": {
+   "change": "identical",
+   "original_sha256": "e23d5c754f1bd0b2f6ac28af674c8e2cb6f10c415ccd7025c943292c174bad61",
+   "public_sha256": "e23d5c754f1bd0b2f6ac28af674c8e2cb6f10c415ccd7025c943292c174bad61",
+   "redacted_fields": []
+  },
+  "client_ops.jsonl": {
+   "change": "identical",
+   "original_sha256": "0d815793f79f02a89d467a1bdef6882e1d5cdcb979bfb8a06c2ce9f8d43e9e4f",
+   "public_sha256": "0d815793f79f02a89d467a1bdef6882e1d5cdcb979bfb8a06c2ce9f8d43e9e4f",
+   "redacted_fields": []
+  }
+ },
+ "kitchen": "31000",
+ "loop_request_sha256": "48451e1cc59ab79efb5a1934eb5b6ced49e97fa0c0aadbe0bc42742076d48fb2",
+ "model_id": "nvidia/nemotron-3-super-120b-a12b",
+ "noise_seed": 960040,
+ "prepared_with_snapshot_tree_sha256": "5fbd3df1f3df536f8717b25ba3dd427fe2ab1c41c65621ef6e39a353e271e599",
+ "redaction_rule": "Each original JSON file was parsed, the listed fields were replaced by the text \"REDACTED (private field, see PROVENANCE.json)\", and the file was written again in its original layout (json.dumps with indent 1, sorted keys and a final newline). Writing the unmodified original in that layout gives back its exact bytes; this was checked when the record was made. The request, the answer, the fingerprints, the usage and the cost fields are unchanged. original_sha256 is the sha256 of the original file.",
+ "request_sha256": "37b01a38b0bb034786b1997d5b988ef3bfa60dce3e41833e891858e38950ab93",
+ "scene": "A4",
+ "schema": "siteshift-public-choice-record-1",
+ "situation": "in_place",
+ "what_this_is": "The recorded Nemotron choice of this situation: the exact request sent once to nvidia/nemotron-3-super-120b-a12b through Nebius Token Factory (text only, a menu of two options), its answer, the call receipt and the client's own log line. The replay serves this answer only when the robot's live request text has the same sha256. No model is called by a replay."
+}

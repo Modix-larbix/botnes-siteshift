@@ -1,0 +1,92 @@
+{
+ "schema": "siteshift-recorded-choice-request-1",
+ "episode_id": "demoA_A4_31000",
+ "scene": "A4",
+ "kitchen": "31000",
+ "label": "Simulation (MuJoCo), simulated perception, development kitchens. No physical robot.",
+ "extracted_from": "site/data/episodes.js, episode demoA_A4_31000: robot.task_choice.request (messages, request_sha256), robot.task_choice.options and conditions, cost.model_id",
+ "choice_prompt_version": "demoA-choice-1",
+ "system_sha256": "583c307cbff89d4cfc0b3d099f17cc3fdfce49902a50dc9b3649441d9f168358",
+ "request_sha256": "37b01a38b0bb034786b1997d5b988ef3bfa60dce3e41833e891858e38950ab93",
+ "fingerprint_rule": "sha256 of json.dumps(request, sort_keys=True, separators=(',', ':'), ensure_ascii=False) encoded in UTF-8",
+ "text_only": true,
+ "request": {
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You choose the next step of a simulated kitchen robot (simulation, simulated perception) from a closed menu of two options. Each option runs a fixed program written by the team; you do not write a program.\nRules:\n- Read the robot's own SCENE STATE text in the user message. It is the robot's reading, as text; there are no images.\n- scrub_bowl is valid only if the robot tracks a sponge it is not holding, the line \"hand:\" reads \"holding no\", and it reports 0 contact incidents and 0 grip events. The code checks these conditions again and refuses scrub_bowl when one of them does not hold.\n- ask_help is always valid.\n- Answer with one JSON object and nothing else: {\"option\": \"scrub_bowl\" or \"ask_help\", \"reason\": \"one short sentence\"}. The reason has at most 300 characters."
+   },
+   {
+    "role": "user",
+    "content": "TASK (public statement): Find the sponge, pick it, and scrub the bowl on the landing tray with it for 3 seconds.\n\nSCENE STATE NOW (robot side, read when this request was built, after obs-007; scene-state-1):\nlegend: cleared means not found in the part inspected, not absent: every place where the sponge could lie flat or stand on its long edge was shown since the robot's last pick, scrub, action while holding something or gesture that reported a contact; the floor under an object resting on it is not checked, under a raised object (towel, board) it is\nhand: holding no; contact incidents 0; grip events 0\nsearch for sponge: found\nsponge tracks: trk-012 observed in drawer_unit:0\nnot cleared 0 of 5: none\nsponge seen here 1 of 5: drawer_unit:0 (drawer open 0.24 m (end stop))\ncleared 4 of 5 (not found in the part inspected, not absent): drawer_unit:1 obs-007 (drawer open 0.24 m (end stop)), sink_basin obs-004, landing_tray obs-005, drying_mat obs-006\noutside the scope, never inspected: bins_interior, other surfaces not in view\nobjects seen (latest first): spray_bottle trk-013 drawer_unit:1 obs-007 | cup trk-009 landing_tray obs-005 | cup trk-010 landing_tray obs-005 | bowl trk-008 landing_tray obs-005 | spoon trk-011 landing_tray obs-005\n\nMENU (choose exactly one option):\n- scrub_bowl: a fixed program written by the team: look at the sponge's region again and observe, pick the sponge the robot tracks, find the bowl on the landing tray and scrub it for 3 s; the robot's own guards check the pick and the end of the task\n- ask_help: a fixed program written by the team: stop and ask a person for help, listing the zones still to check\n\nAnswer with the JSON object only: {\"option\": \"...\", \"reason\": \"...\"}."
+   }
+  ],
+  "temperature": 0.0,
+  "max_completion_tokens": 16384
+ },
+ "menu": {
+  "rule_text": "The model proposes from a menu of two; code checks the conditions.",
+  "options": [
+   {
+    "option": "scrub_bowl",
+    "valid": true,
+    "program_text": "fixed program written by the team: look again, pick the sponge, scrub the bowl on the landing tray"
+   },
+   {
+    "option": "ask_help",
+    "valid": true,
+    "program_text": "fixed program written by the team: stop and ask a person, listing the zones still to check"
+   }
+  ],
+  "valid_options": [
+   "scrub_bowl",
+   "ask_help"
+  ],
+  "conditions": [
+   {
+    "condition": "contact_incidents_0",
+    "condition_text": "contact incidents 0",
+    "holds": true
+   },
+   {
+    "condition": "grip_events_0",
+    "condition_text": "grip events 0",
+    "holds": true
+   },
+   {
+    "condition": "hand_holding_no",
+    "condition_text": "hand: holding no",
+    "holds": true
+   },
+   {
+    "condition": "no_held_line",
+    "condition_text": "no line saying the sponge is held",
+    "holds": true
+   },
+   {
+    "condition": "review_note_perceived_sponge",
+    "condition_text": "the help review note: the robot perceives a sponge it has not picked",
+    "holds": true
+   },
+   {
+    "condition": "scene_state_readable",
+    "condition_text": "the robot's SCENE STATE text is readable",
+    "holds": true
+   },
+   {
+    "condition": "search_found",
+    "condition_text": "search for sponge: found",
+    "holds": true
+   },
+   {
+    "condition": "sponge_track_not_held",
+    "condition_text": "a sponge track not held",
+    "holds": true
+   }
+  ],
+  "who_chose": "nemotron",
+  "who_chose_text": "who chose: Nemotron, from a menu of two (the code checked the conditions)"
+ },
+ "note": "The robot's own request 2 (its designated prompt) was answered by the demo client and never sent to Nemotron. Nemotron received only the choice request, as text, with no images."
+}

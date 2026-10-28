@@ -1,0 +1,195 @@
+{
+ "label": "SIMULATION",
+ "mode": "main",
+ "task": "R16",
+ "episodes_planned": 960,
+ "episodes_completed": 960,
+ "conditions_not_run": [],
+ "paired_vs_REF": {
+  "V1_OFFSET": {
+   "REF_success_variation_failure": 3,
+   "REF_failure_variation_success": 1,
+   "mcnemar_exact_p": 0.625
+  },
+  "V2_OILY": {
+   "REF_success_variation_failure": 158,
+   "REF_failure_variation_success": 0,
+   "mcnemar_exact_p": 0.0
+  }
+ },
+ "per_condition": {
+  "REF": {
+   "n": 320,
+   "env_success": 317,
+   "env_success_wilson95": [
+    0.9728,
+    0.9968
+   ],
+   "env_safety_failures": 3,
+   "robot_claims": {
+    "still to check": 317,
+    "safety fault detected": 3
+   },
+   "audited": {
+    "main_claim": {
+     "scored": 0,
+     "true": 0,
+     "by_kind": {
+      "inserted": {
+       "n": 0,
+       "true": 0,
+       "false": 0
+      },
+      "not inserted": {
+       "n": 0,
+       "true": 0,
+       "false": 0
+      }
+     },
+     "still_to_check_not_scored": 317,
+     "still_to_check_part_inserted": 192
+    },
+    "part_held": {
+     "n": 320,
+     "true": 316
+    }
+   },
+   "consistency_not_scored": {
+    "safety fault detected": {
+     "n": 3,
+     "env_flag_agrees": 3,
+     "joint_jump_only": 0
+    }
+   }
+  },
+  "V1_OFFSET": {
+   "n": 320,
+   "env_success": 315,
+   "env_success_wilson95": [
+    0.964,
+    0.9933
+   ],
+   "env_safety_failures": 5,
+   "robot_claims": {
+    "still to check": 315,
+    "safety fault detected": 5
+   },
+   "audited": {
+    "main_claim": {
+     "scored": 0,
+     "true": 0,
+     "by_kind": {
+      "inserted": {
+       "n": 0,
+       "true": 0,
+       "false": 0
+      },
+      "not inserted": {
+       "n": 0,
+       "true": 0,
+       "false": 0
+      }
+     },
+     "still_to_check_not_scored": 315,
+     "still_to_check_part_inserted": 197
+    },
+    "part_held": {
+     "n": 320,
+     "true": 315
+    }
+   },
+   "consistency_not_scored": {
+    "safety fault detected": {
+     "n": 5,
+     "env_flag_agrees": 5,
+     "joint_jump_only": 0
+    }
+   }
+  },
+  "V2_OILY": {
+   "n": 320,
+   "env_success": 159,
+   "env_success_wilson95": [
+    0.4425,
+    0.5514
+   ],
+   "env_safety_failures": 10,
+   "robot_claims": {
+    "still to check": 296,
+    "safety fault detected": 10,
+    "not inserted": 14
+   },
+   "audited": {
+    "main_claim": {
+     "scored": 14,
+     "true": 14,
+     "by_kind": {
+      "inserted": {
+       "n": 0,
+       "true": 0,
+       "false": 0
+      },
+      "not inserted": {
+       "n": 14,
+       "true": 14,
+       "false": 0
+      }
+     },
+     "still_to_check_not_scored": 296,
+     "still_to_check_part_inserted": 140
+    },
+    "part_held": {
+     "n": 320,
+     "true": 297
+    }
+   },
+   "consistency_not_scored": {
+    "safety fault detected": {
+     "n": 10,
+     "env_flag_agrees": 10,
+     "joint_jump_only": 0
+    }
+   }
+  }
+ },
+ "audit_scope": {
+  "audited_predicates": {
+   "main_claim": "'inserted' / 'not inserted' against the part keypoints in the simulator at the report instant (the env's 1 mm threshold); 'still to check' is counted, never scored; 'safety fault detected' is a consistency check, not scored",
+   "part_held": "against geometric contacts of both fingers with the part (distance <= 0.5 mm) at the report instant; this does not prove a stable grasp or a sufficient holding force"
+  },
+  "diagnostics_not_independently_audited": [
+   "joint speeds within limits (the robot's own joint-velocity monitor)",
+   "summed finger-joint opening and the estimated pad gap: joint readings, not a measured object width",
+   "tool position: tool centre point from the kinematic model, not the part",
+   "estimated axial push and descent: from commanded joint torques, not a force sensor",
+   "the 'did not look at' list"
+  ]
+ },
+ "reporter": "retrospective: computed after the full rollout from recorded robot-side signals; it picks its own report instant and never stops or changes the controller",
+ "raw_signals": "Raw 25 Hz signals (signals/*.npz) are never sent through the log export; they stay in the disposable container (and in a bucket copy only if one was mounted). From the exported JSON anyone can recount every verdict and summary, but the audit cannot be fully recomputed from the signals.",
+ "videos": {
+  "first_success": "videos/first_success_REF_ep000.mp4",
+  "first_failure": "videos/first_failure_REF_ep139.mp4"
+ },
+ "timings": {
+  "REF": {
+   "rollout_wall_s": 26.3,
+   "steps": 375,
+   "horizon": 375,
+   "report_audit_wall_s": 0.4
+  },
+  "V1_OFFSET": {
+   "rollout_wall_s": 26.5,
+   "steps": 375,
+   "horizon": 375,
+   "report_audit_wall_s": 0.4
+  },
+  "V2_OILY": {
+   "rollout_wall_s": 21.9,
+   "steps": 375,
+   "horizon": 375,
+   "report_audit_wall_s": 0.4
+  }
+ },
+ "elapsed_min": 4.7
+}

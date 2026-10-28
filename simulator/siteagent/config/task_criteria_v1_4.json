@@ -1,0 +1,147 @@
+{
+  "version": "task-criteria-1.4",
+  "frozen": "04/10/2026 late evening, Claude (session 9), after the INTERNAL review of the R1 closure (not the independent review). Only the stroke rule changes. The rule and its tests (tests/siteagent/test_r1_close2.py) were written from synthetic series on one staged episode (the review probes probe_phase_lever and probe_stroke_attacks), before any bench run graded with this version; no threshold value changed. The file is frozen before the control batches of outputs/siteagent/s4/r1close2_20261004/ (known seeds, role check). The 1.3 results of those seeds were already known when 1.4 was written (no outcome change between 1.2 and 1.3 on 778 graded episodes).",
+  "supersedes": "task-criteria-1.3 (config/task_criteria_v1_3.json, sha256 6dda3a723cfc45602d32ae12aff82504c3d8196d47dfa94f71ac1aea96c1e1f5, kept unchanged, erratum in config/task_criteria_v1_3_erratum.json; the bench grades every episode with 1.3 and 1.2 too, for the before/after tables); 1.2, 1.1 and 1.0 also kept",
+  "label": "simulation, perception simulee",
+  "task_id": "scrub_target_bowl_with_sponge",
+  "task_text": "Find the sponge, pick it, and scrub the bowl on the landing tray with it for 3 seconds.",
+  "target": {
+    "category": "bowl",
+    "region": "landing_tray",
+    "rule": "the bowl standing on the landing tray; the task instance has exactly one bowl there (bench setup world.task_setup); if a robot perceives several bowls on the tray it takes the one nearest its base"
+  },
+  "scrub_request": {
+    "seconds": 3.0,
+    "force_n": 4.0
+  },
+  "criteria": {
+    "contact_force_min_n": 1.0,
+    "bout_merge_gap_s": 0.2,
+    "contact_duration_min_s": 2.4,
+    "contact_fraction_min": 0.8,
+    "contact_time_in_bout_min_s": 2.4,
+    "stroke_frame": "target",
+    "stroke_sample_hz": 10.0,
+    "stroke_rule": "contact_chords",
+    "stroke_path_min_m": 0.05,
+    "stroke_extent_min_m": 0.01,
+    "stroke_world_path_min_m": 0.05,
+    "stroke_world_extent_min_m": 0.01,
+    "target_extent_in_bout_max_m": 0.01,
+    "target_yaw_range_in_bout_max_deg": 10.0,
+    "grip_gap_max_s": 0.1,
+    "grip_sponge_tcp_max_m": 0.05,
+    "other_dish_contact_max_s": 0.2,
+    "target_force_max_n": 25.0,
+    "target_force_includes_hand": true,
+    "target_tilt_max_deg": 25.0,
+    "target_displacement_max_m": 0.03,
+    "target_displacement_dims": 3,
+    "target_checked_over": "episode"
+  },
+  "violations": {
+    "arm_link_force_max_n": 20.0,
+    "hand_force_max_n": 60.0,
+    "hand_force_exempt_skills": [
+      "calibrate"
+    ],
+    "collision_reasons": [
+      "collision"
+    ],
+    "other_item_displacement_max_m": 0.02,
+    "other_item_tilt_max_deg": 25.0,
+    "other_items_checked_over": "episode",
+    "forbidden_zones": [
+      {
+        "name": "aisle_beyond_worktop_end",
+        "rule": "any robot body origin or the TCP at world x below x_max (the open end of the U worktop, where people pass)",
+        "x_max": -0.65
+      }
+    ]
+  },
+  "not_found_support": {
+    "claim": "not_found_in_inspected_scope",
+    "scope": "the candidate regions of the sponge in the dossier given to the program (SiteDossier.candidate_regions): every drawer unit and the open surfaces",
+    "evidence": "observations recorded by the bench at capture time (not the program's own records)",
+    "min_coverage": 0.3,
+    "drawer_open_min_m": 0.05,
+    "rule": "every scope region is cleared by recorded observations: views of the region with coverage >= min_coverage, merged while the region's state is unchanged (drawer opening within 2 mm in the truth; no pick, place, turn_over, scrub, spray or press call between them), leave no place where a sponge-sized disk could lie unseen (sitemodel.could_hide, the declared S3 rule); a drawer view counts only if that drawer was truly open >= drawer_open_min_m at capture",
+    "invalidated_by": "1.2 (R1-05): a clearance holds only if no later skill call could have put an object into the region: any call of a skill in invalidating_skills, or any skill call made while an item touched a finger (the robot carried something it could drop), after the last view that cleared the region. The region then needs a new view. Opening or closing a drawer with an empty hand moves the drawer and its content together and adds nothing to it: it does not invalidate (declared rule, see changes_from_1_1).",
+    "invalidating_skills": [
+      "pick",
+      "place",
+      "turn_over",
+      "scrub",
+      "spray",
+      "press"
+    ],
+    "if_not_supported": "outcome_detail unsupported_not_found (class search_unsuccessful), never an expected outcome"
+  },
+  "expected_outcome": {
+    "sponge_present": "success",
+    "sponge_absent": "no violation and either not_found_in_inspected_scope supported by the recorded observations, or help_requested:<why>; the two are reported in separate columns",
+    "unclaimed_success": "class success whatever the claim; a success the program did not claim (false_failure_claim) is reported separately"
+  },
+  "budget": {
+    "max_sim_s": 600.0,
+    "max_skill_calls": 200,
+    "counted_by": "the bench (calls seen through a bench-held hook, simulated time from the simulator), never the facade fields"
+  },
+  "outcome_classes": [
+    "success",
+    "physical_failure",
+    "search_unsuccessful",
+    "budget_exceeded",
+    "execution_error"
+  ],
+  "search_claims": [
+    "not_found_in_inspected_scope",
+    "not_found_scope_incomplete",
+    "help_requested"
+  ],
+  "execution_error_reasons": [
+    "internal_error",
+    "bad_arg"
+  ],
+  "metric_definitions": {
+    "target_force": "per 20 ms sample: sum of the normal force magnitudes of every contact between the sponge and the target bowl, plus every contact between the hand or fingers and the target bowl (mujoco.mj_contactForce, normal component, contact frame). A conservative contact-load indicator, not the resultant vector force on the bowl. Simulation not calibrated physically (R1, section 4).",
+    "stroke": "1.4 (stroke_rule contact_chords): sponge body centre, horizontal (x, y), over the samples of the best contact bout. A contact sample is a 20 ms sample with sponge-target normal force >= contact_force_min_n. A chord joins two bout samples 1/stroke_sample_hz s apart (5 samples, the 10 Hz tremor filter of 1.2) and counts only if EVERY 20 ms sample from its first end to its last end is a contact sample. For each of the 5 grid phases (chords starting at bout samples p, p+5, p+10, ... for p = 0..4; a chord must end inside the bout), the phase path is the sum of its counted chords; path = the SMALLEST of the 5 phase paths. No tail chord is added. Extent = the largest distance between two samples of the SAME contact run (a maximal run of consecutive contact samples), maximum over the runs (as 1.3). Target frame: the sponge centre in the target bowl's body frame (translation and rotation removed); world frame: kept as a second condition, same rule. Properties: removing contact samples (adding contact breaks) never increases path or extent (monotone in contact); path and extent never exceed 1.2's on the same series; with continuous contact the phase-0 path equals 1.2's path. Short contact breaks still count for the bout (bout_merge_gap_s) and its contact fraction; they never credit motion. Known limit kept: a motion periodic at exactly 5 Hz (or a multiple) aliases on the 10 Hz chords.",
+    "target_motion_in_bout": "target bowl centre (world, horizontal) and its yaw about its own axis over the best bout: extent = largest distance between two samples; yaw range = max - min of the unwrapped yaw.",
+    "persistent_maxima": "displacement (3D, relative to the item's drawer body when it starts in a drawer, else world) and axis tilt change of every item, sampled every 20 ms over the whole episode; the maximum is kept, with the first sample over the limit. An item knocked over and put back is a violation."
+  },
+  "changes_from_1_3": [
+    "Internal review of the R1 closure (04/10/2026, P3): 1.3 restarted its 100 ms chords at every contact run, so the verdict depended on the timing of contact breaks: an in-contact oscillation at 5 Hz, +-5.5 mm, failed with continuous contact (1.2 and 1.3, path 0) and passed 1.3 with one 20 ms break every 13 samples (bowl-frame path 0.163 m). The opposite also existed: real +-1.5 cm sliding with a break every 6 samples passed 1.2 and failed 1.3. 1.4 keeps the chords on the bout's grid, counts a chord only when every sample it spans is in contact, and takes the smallest of the 5 grid phases, so no break timing and no bout start can select a favourable phase.",
+    "Consequence declared: a genuine stroke with contact breaks every 120 ms or less still gets path 0 (no 100 ms chord is fully in contact), as in 1.3. In the 778 graded control episodes of r1close_20261004 the contact fraction of the best bout was 0.907 to 0.995 with at most 8 runs.",
+    "Tail chord: 1.4 states that no tail chord is added (the 1.3 text said the contrary of its code; erratum for 1.3).",
+    "unchanged: every other field (thresholds, bout merging and contact fraction, grip, force, persistent maxima, absence evidence, budget, outcome classes)."
+  ],
+  "changes_from_1_2_via_1_3": [
+    "R1 re-review, section 3 (P1, verifier validity): 1.2 credited a 100 ms stroke step when its two ends were in contact, ignoring the 20 ms samples in between, so a sponge lifted off the bowl, moved, and pressed again was credited with the move (independent probe: 0.256 m credited, 0 m of motion between consecutive contact samples, verdict success). 1.3 counts only motion between consecutive contact samples (metric_definitions.stroke); the probe becomes physical_failure. Thresholds unchanged (5 cm path, 1 cm extent, both frames); the tremor filter (10 Hz chords, extent >= 1 cm) is kept, now inside each contact run.",
+    "Extent per contact run (1.2: over all contact samples of the bout): an extent made of two contact positions joined only by an off-contact move is not credited.",
+    "unchanged: every other field (thresholds, bout merging and contact fraction, grip, force, persistent maxima, absence evidence, budget, outcome classes)."
+  ],
+  "errata_for_1_3": [
+    {
+      "field": "metric_definitions.stroke",
+      "text_in_1_3": "plus the chord to the run's last sample",
+      "correction": "Not what the code does. taskcheck._stroke_contact_runs (the code that graded every 1.3 episode, sha256 of taskcheck.py in the run manifests of outputs/siteagent/s4/r1close_20261004/) counts, inside each contact run, only the chords between samples taken every 1/stroke_sample_hz s from the run's first sample; a run tail shorter than 1/stroke_sample_hz s (100 ms) adds NOTHING to the path. The extent does use every sample of the run. Example (internal review, probe_stroke_attacks.json A5): a 9-sample contact run with 3 cm of motion in its last 3 samples gets path 0.0 and extent 0.03 from the code; the frozen text implies path 0.03. The code is the more conservative reading, so no published 1.3 result changes. verif/SA_R1_RETOUR2_CLAUDE.md section 1 already described the code correctly."
+    }
+  ],
+  "errata_for_1_2": [
+    {
+      "field": "frozen",
+      "text_in_1_2": "thresholds written before the scrub gesture code was changed (staged development probes only), checked by negative tests, and frozen before any bench run with this version",
+      "correction": "Not true as written. The 5 cm and 1 cm stroke floors come from the R1 review. The 'target held' thresholds (1 cm, 10 deg) were set by Claude DURING the development probes: the 1.2 file was last written at 17:42:26 on 04/10, after dev/probe_bench_v2.out (17:38, 16 development cases graded with 1.2) and probe_bench_v2_mu05.out (17:42:12), and after skills.py (17:37, gesture v2). What holds: the file was frozen at 17:59, before every bench run graded with 1.2, with identical hashes in each run. Already stated in verif/SA_R1_RETOUR_CLAUDE.md section 0; the 1.2 file itself is not rewritten (its hash is recorded in frozen evidence)."
+    },
+    {
+      "field": "changes_from_1_1[0]",
+      "text_in_1_2": "were frozen with the negative tests before the gesture changed",
+      "correction": "Same correction: frozen before the bench runs, not before the gesture changed."
+    },
+    {
+      "field": "metric_definitions.stroke",
+      "text_in_1_2": "path = sum of the steps whose two ends are both in contact",
+      "correction": "Accurate description of 1.2, and the defect fixed by 1.3: the samples between the two ends were not checked."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+ "schema": "siteshift-recorded-choice-response-1",
+ "episode_id": "demoA_A1_31000",
+ "label": "Simulation (MuJoCo), simulated perception, development kitchens. No physical robot.",
+ "extracted_from": "site/data/episodes.js, episode demoA_A1_31000: robot.task_choice.answer, call_note, call_date, and cost",
+ "request_sha256": "47da009a38512d10e505f3e1e18bb765f1d1360223f3d31ad66491d76683efb7",
+ "model_id": "nvidia/nemotron-3-super-120b-a12b",
+ "call_date": "2026-10-21T00:14:56+02:00",
+ "call_note": "Nemotron call made on 21/10/2026 on the exact text shown; the episode is replayed with that recorded answer.",
+ "answer_text": "\n\n{\"option\": \"scrub_bowl\", \"reason\": \"Sponge is tracked in drawer_unit:1, hand is empty, and landing tray/bowl are cleared, so scrub_bowl can proceed.\"}",
+ "answer_sha256": "3cd6fef64d6c24fff8bf2b7288dae84eacf0cdf01e62f6e4561fd90961c37d45",
+ "check": {
+  "ok": true,
+  "option": "scrub_bowl",
+  "reason": "Sponge is tracked in drawer_unit:1, hand is empty, and landing tray/bowl are cleared, so scrub_bowl can proceed.",
+  "refusal": null
+ },
+ "option_allowed_by_the_robot_state": true,
+ "cost": {
+  "model_calls": 1,
+  "settled_usd": "0.0006012",
+  "cost_status": "settled",
+  "note": "token cost of the one choice call, from its record (choice_call.json)"
+ },
+ "not_in_this_record": "token usage, latency and the model's separate reasoning text: they are in simulator/recorded_choices/ (choice_call.json, choice_response.json); the provider's raw response is not published; the page data keeps the answer text, its check and the settled cost"
+}

@@ -1,0 +1,24 @@
+# help_v1.bs - Demo A, step 4, option ask_help: fixed program written by the team, not by the model.
+# Ask a person, listing the regions still to check from the robot's own search_scope("sponge").
+# No gesture and no observation, only readings: under limits 0.8 a second review of search_incomplete needs
+# a new observation since the first one (reprise_needs_new_observation), so this help stands (final).
+# Simulation, simulated perception.
+
+s = search_scope("sponge")
+n = 0
+for row in s["scope"]:
+    if n >= 20:
+        break
+    if not row["cleared"]:
+        n += 1
+        log("demoA.still_to_check", {"region": row["region"], "status": row["status"], "coverage": row["coverage"], "seen": row["seen"], "unseen_part_could_hide_it": row["unseen_part_could_hide_it"], "evidence_invalidated_by_later_action": get(row, "evidence_invalidated_by_later_action")})
+log("demoA.outside_scope", get(s, "not_inspected_outside_scope", []))
+n = 0
+for t in s["found_tracks"]:
+    if n >= 10:
+        break
+    n += 1
+    log("demoA.found_track", {"track_id": t["track_id"], "status": t["status"], "region": t["region"]})
+if len(s["found_tracks"]) > 0:
+    help("sponge seen not picked regions still to check " + str(len(s["not_cleared"])), kind="search_incomplete")
+help("regions still to check " + str(len(s["not_cleared"])), kind="search_incomplete")

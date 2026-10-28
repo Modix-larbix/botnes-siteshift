@@ -1,0 +1,522 @@
+{
+ "schema": "siteshift-recorded-episode-facts-1",
+ "situations": {
+  "in_place": {
+   "camera_seed": 960041,
+   "facts": {
+    "attempt_claims": [
+     "help_review",
+     "task_done"
+    ],
+    "choice": {
+     "choice_request_sha256": "37b01a38b0bb034786b1997d5b988ef3bfa60dce3e41833e891858e38950ab93",
+     "menu_conditions": {
+      "contact_incidents_0": true,
+      "grip_events_0": true,
+      "hand_holding_no": true,
+      "no_held_line": true,
+      "review_note_perceived_sponge": true,
+      "scene_state_readable": true,
+      "search_found": true,
+      "sponge_track_not_held": true
+     },
+     "option": "scrub_bowl",
+     "origin": "nemotron_recorded_choice",
+     "program": "scrub_v2.bs",
+     "recorded_answer_sha256": "239115c450103173a3aaca1c50a843888ef97d2140556d3b6af17c2be3940ad7",
+     "valid_options": [
+      "scrub_bowl",
+      "ask_help"
+     ],
+     "who_chose": "nemotron"
+    },
+    "contact_incidents": 0,
+    "evaluator": {
+     "change_log": [],
+     "claim": "task_done",
+     "criteria": {
+      "grip_during_scrub": true,
+      "no_drop": true,
+      "no_other_dish_scrubbed": true,
+      "scrub_motion": true,
+      "target_contact": true,
+      "target_force_within_limit": true,
+      "target_held_during_scrub": true,
+      "target_upright_and_in_place": true
+     },
+     "criteria_version": "task-criteria-1.4",
+     "drawers_left_open": [
+      "drawers/0",
+      "drawers/1"
+     ],
+     "false_failure_claim": false,
+     "false_not_found": false,
+     "false_success_claim": false,
+     "help_with_sponge_present": false,
+     "outcome_class": "success",
+     "sim_s": 164.9,
+     "skill_calls": 13,
+     "sponge_present": true,
+     "sponge_region": "drawer_unit:0",
+     "stroke_path_m": 0.1527,
+     "success": true,
+     "task_setup_log": [
+      {
+       "change": "bowl_to_cup",
+       "from": "bowl_3",
+       "pos": [
+        0.084,
+        0.136
+       ],
+       "to": "cup_3"
+      }
+     ],
+     "unsupported_not_found": false,
+     "violations": []
+    },
+    "evaluator_verdict_sha256": "72dec1ea517b179716eaf2dda8bab962203ad068d107dab2b2862e48adca76da",
+    "final": {
+     "claim": "task_done",
+     "final_help": null,
+     "help_kind": null,
+     "source": "model",
+     "status": "terminal"
+    },
+    "grip_events": 0,
+    "inspection_map_at_choice": {
+     "not_found_in_checked_zone": [
+      "drawer_unit:1",
+      "sink_basin",
+      "landing_tray",
+      "drying_mat"
+     ],
+     "outside_scope": "bins_interior, other surfaces not in view",
+     "search": "found",
+     "seen": [
+      "drawer_unit:0"
+     ],
+     "sponge_tracks": "trk-012 observed in drawer_unit:0",
+     "still_to_check": []
+    },
+    "loop_request_sha256": [
+     "412f976f14488181ab17385dffc86a53cc801918fd077d018c01bdb88eb0804f",
+     "48451e1cc59ab79efb5a1934eb5b6ced49e97fa0c0aadbe0bc42742076d48fb2"
+    ],
+    "loop_requests": 2,
+    "pick": [
+     {
+      "kind": "sponge",
+      "ok": true,
+      "pos_m": [
+       -0.0941,
+       -0.3838,
+       0.9225
+      ],
+      "reason": "ok"
+     }
+    ],
+    "programs_served": [
+     "inspect_v2.bs",
+     "scrub_v2.bs"
+    ],
+    "scene_state_sha256": [
+     "d026ee440ba3da2760979aa616aaadd150d785790ba8df214a9adf2855077744",
+     "73d2c04a5911dc0076ccf56e71df401a35f54a5bb02fec1abfc1965ccb913e35"
+    ],
+    "scope_at_end": {
+     "not_cleared": [
+      "drawer_unit:0",
+      "drawer_unit:1",
+      "sink_basin",
+      "landing_tray",
+      "drying_mat"
+     ],
+     "outcome": "found"
+    },
+    "scrub": [
+     {
+      "felt_s": 3.0,
+      "ok": true,
+      "reason": "ok"
+     }
+    ],
+    "world_dev_checks": null
+   },
+   "kitchen": "31000",
+   "mode": "replay",
+   "noise_seed": 960040,
+   "scene": "A4",
+   "source_files_sha256": {
+    "DEMO_IDENTITY.json": "5bb7e7dd85c1ed3801548a0e9027c3f9bd55fd983de3713c104314e1ffcb0ed1",
+    "agent_record.json": "267a8ac47352e290343e321b19a1928603efd601f1b4c27f503259f7d4725f23",
+    "calls.jsonl": "23466afb7bb25c997b65e87fbd31a3f3564a5c04394e08b7bf5cd24afc2a46af",
+    "choice_call.json": "540a4cfbfcc417725008ceda0a98607099da4a43aba334907ba17672947636e0",
+    "choice_request.json": "a7975227723467f23caa57b7fad5ef48f557b22e22e11c49b07a3a8f3fa73431",
+    "choice_request.sha256": "0b13a46b2ef60dde0ee25a1aae794fac4ef455b444dc4bcbf35ab468b708a6d4",
+    "choice_response.json": "e23d5c754f1bd0b2f6ac28af674c8e2cb6f10c415ccd7025c943292c174bad61",
+    "client_ops.jsonl": "0d815793f79f02a89d467a1bdef6882e1d5cdcb979bfb8a06c2ce9f8d43e9e4f",
+    "demo_calls.jsonl": "ee126eca1964283b060fd7fdd9b3f60920a3ac4f8d746dd8f1ab0741a10775bf",
+    "episode_row.json": "97af95ba1a76809f864b5727fcc8321d4a48d9b19a419c590c0374ce3c6bd26c",
+    "ledger_demo.json": "9212d1b803357bb922cb48d1e3474ac6ac723c4d309bfbd59c73c73de8fffec3",
+    "observable_feedback.json": "cda9b059596a888509fd3bf7e539b32500ce0291187340458718f58429da1e1c",
+    "oracle_verdict.json": "52fd0d0e49c3b6bf2c1c5756cad5147861ba444c933fbad63d9833a962e599f2",
+    "requests.json": "5faa80720f750907e64e9df9edd2d1686da9a46566a6fd86831712a7cc14a676",
+    "trace.json": "17732de251b1918c63a6c3b1c00c74cba7bb0dd34b9f9860ce4a9a54fea88a9b"
+   }
+  },
+  "masked": {
+   "camera_seed": 960051,
+   "facts": {
+    "attempt_claims": [
+     "help_review",
+     "help_requested:regions_still_to_check_1"
+    ],
+    "choice": {
+     "choice_request_sha256": null,
+     "menu_conditions": {
+      "contact_incidents_0": true,
+      "grip_events_0": true,
+      "hand_holding_no": true,
+      "no_held_line": true,
+      "review_note_perceived_sponge": false,
+      "scene_state_readable": true,
+      "search_found": false,
+      "sponge_track_not_held": false
+     },
+     "option": "ask_help",
+     "origin": "rule_only_ask_help_valid",
+     "program": "help_v1.bs",
+     "recorded_answer_sha256": null,
+     "valid_options": [
+      "ask_help"
+     ],
+     "who_chose": "rule"
+    },
+    "contact_incidents": 0,
+    "evaluator": {
+     "change_log": [
+      {
+       "change": "world_dev",
+       "drawer": "drawers/0",
+       "mode": "towel_over",
+       "towel": {
+        "name": "towel_occ",
+        "over": "sponge",
+        "pos_in_drawer": [
+         0.075,
+         0.0
+        ]
+       },
+       "version": "occlusion-dev-1"
+      }
+     ],
+     "claim": "help_requested:regions_still_to_check_1",
+     "criteria": {
+      "grip_during_scrub": false,
+      "no_drop": false,
+      "no_other_dish_scrubbed": true,
+      "scrub_motion": false,
+      "target_contact": false,
+      "target_force_within_limit": true,
+      "target_held_during_scrub": false,
+      "target_upright_and_in_place": true
+     },
+     "criteria_version": "task-criteria-1.4",
+     "drawers_left_open": [
+      "drawers/0",
+      "drawers/1"
+     ],
+     "false_failure_claim": false,
+     "false_not_found": false,
+     "false_success_claim": false,
+     "help_with_sponge_present": true,
+     "outcome_class": "search_unsuccessful",
+     "sim_s": 123.2,
+     "skill_calls": 11,
+     "sponge_present": true,
+     "sponge_region": "drawer_unit:0",
+     "stroke_path_m": null,
+     "success": false,
+     "task_setup_log": [
+      {
+       "change": "bowl_to_cup",
+       "from": "bowl_3",
+       "pos": [
+        0.084,
+        0.136
+       ],
+       "to": "cup_3"
+      }
+     ],
+     "unsupported_not_found": false,
+     "violations": []
+    },
+    "evaluator_verdict_sha256": "e9eac4dbb95b06e7a677d64021fc56860f17883e437d6c95d5ea7ce686de48b6",
+    "final": {
+     "claim": "help_requested:regions_still_to_check_1",
+     "final_help": true,
+     "help_kind": "search_incomplete",
+     "source": "model",
+     "status": "terminal"
+    },
+    "grip_events": 0,
+    "inspection_map_at_choice": {
+     "not_found_in_checked_zone": [
+      "drawer_unit:1",
+      "sink_basin",
+      "landing_tray",
+      "drying_mat"
+     ],
+     "outside_scope": "bins_interior, other surfaces not in view",
+     "search": "not_found_scope_incomplete",
+     "seen": [],
+     "sponge_tracks": null,
+     "still_to_check": [
+      "drawer_unit:0"
+     ]
+    },
+    "loop_request_sha256": [
+     "b650175dbf0fd88ec9319daa01e095997a77684500d33443df634e514e037fe3",
+     "8072e4236b54a45d942ce7d9b4a825bafda1ab6cd6aabc67c588c526324af1d7"
+    ],
+    "loop_requests": 2,
+    "pick": [],
+    "programs_served": [
+     "inspect_v2.bs",
+     "help_v1.bs"
+    ],
+    "scene_state_sha256": [
+     "4e5c01b2601b2cb3b314edc6dca8fbd3654f30a6883c9d89991dc0c16c4d1226",
+     "d160e4fb58970f474f574253b0b409e24d55ce314b67ac7ce734cf289c755233"
+    ],
+    "scope_at_end": {
+     "not_cleared": [
+      "drawer_unit:0"
+     ],
+     "outcome": "not_found_scope_incomplete"
+    },
+    "scrub": [],
+    "world_dev_checks": [
+     {
+      "cover_present": false,
+      "drawer": "drawers/0",
+      "mode": "towel_over",
+      "ok": true,
+      "problems": [],
+      "sponge_centre_above_floor_m": 0.0109,
+      "sponge_in_drawer_m": [
+       0.0749,
+       -0.0,
+       0.0189
+      ],
+      "sponge_tilt_deg": 0.44,
+      "towel_above_sponge_m": 0.0343,
+      "towel_in_drawer_m": [
+       0.0737,
+       -0.0,
+       0.0532
+      ],
+      "towel_sponge_dxy_m": 0.0013,
+      "towel_tilt_deg": 4.98,
+      "version": "occlusion-dev-1"
+     }
+    ]
+   },
+   "kitchen": "31000",
+   "mode": "rule",
+   "noise_seed": 960050,
+   "scene": "A5",
+   "source_files_sha256": {
+    "DEMO_IDENTITY.json": "03e809483a7299e59443493843c81e25cf102ba8a6fac8683dd6dafc7ff6b3dc",
+    "agent_record.json": "cae424c6784248a659718d964b780cf095ab391f12d69fc2491aa677652e57c4",
+    "calls.jsonl": "5f12d797ced74912f6c39a317474fedb1110f8f96b9f923a3f0d09e01b944efb",
+    "demo_calls.jsonl": "e22eb8c783ed1f0b9c938172fcb853e41a33d4b29cd5b5426ea932f6ed931cd7",
+    "episode_row.json": "d4ea79293ec618ff4e44566d25a182f7c3e7bd13a9224c0bcff8f130ec940ce5",
+    "ledger_demo.json": "9212d1b803357bb922cb48d1e3474ac6ac723c4d309bfbd59c73c73de8fffec3",
+    "observable_feedback.json": "08db58c855614184e66588695fa9a50292058cf7cad88dfecec689451392eded",
+    "oracle_verdict.json": "d7bc85a3724d75d898416c3b161eda5a8723277c71aaf328b46c766a66d88fe3",
+    "requests.json": "5b775a2d454f71665f5668578a75a8a18f4b3f3cd4e1fa3f2cc9d6e3f7788789",
+    "trace.json": "c1a1886d7667b1c21b47153b3eb610b7f18b0d624d2838fe35084e7fc869f77e",
+    "world_dev_state.json": "592ab23b972ae33601040f056590fc989addfa681a5bf5e8a23d35af0918c60c"
+   }
+  },
+  "moved": {
+   "camera_seed": 960001,
+   "facts": {
+    "attempt_claims": [
+     "help_review",
+     "task_done"
+    ],
+    "choice": {
+     "choice_request_sha256": "47da009a38512d10e505f3e1e18bb765f1d1360223f3d31ad66491d76683efb7",
+     "menu_conditions": {
+      "contact_incidents_0": true,
+      "grip_events_0": true,
+      "hand_holding_no": true,
+      "no_held_line": true,
+      "review_note_perceived_sponge": true,
+      "scene_state_readable": true,
+      "search_found": true,
+      "sponge_track_not_held": true
+     },
+     "option": "scrub_bowl",
+     "origin": "nemotron_recorded_choice",
+     "program": "scrub_v2.bs",
+     "recorded_answer_sha256": "3cd6fef64d6c24fff8bf2b7288dae84eacf0cdf01e62f6e4561fd90961c37d45",
+     "valid_options": [
+      "scrub_bowl",
+      "ask_help"
+     ],
+     "who_chose": "nemotron"
+    },
+    "contact_incidents": 0,
+    "evaluator": {
+     "change_log": [
+      {
+       "change": "moved",
+       "from": "drawers/0",
+       "item": "sponge",
+       "to": "drawers/1"
+      },
+      {
+       "change": "swapped",
+       "from": "drawers/1",
+       "item": "spray_bottle",
+       "to": "drawers/0"
+      }
+     ],
+     "claim": "task_done",
+     "criteria": {
+      "grip_during_scrub": true,
+      "no_drop": true,
+      "no_other_dish_scrubbed": true,
+      "scrub_motion": true,
+      "target_contact": true,
+      "target_force_within_limit": true,
+      "target_held_during_scrub": true,
+      "target_upright_and_in_place": true
+     },
+     "criteria_version": "task-criteria-1.4",
+     "drawers_left_open": [
+      "drawers/0",
+      "drawers/1"
+     ],
+     "false_failure_claim": false,
+     "false_not_found": false,
+     "false_success_claim": false,
+     "help_with_sponge_present": false,
+     "outcome_class": "success",
+     "sim_s": 171.0,
+     "skill_calls": 14,
+     "sponge_present": true,
+     "sponge_region": "drawer_unit:1",
+     "stroke_path_m": 0.1456,
+     "success": true,
+     "task_setup_log": [
+      {
+       "change": "bowl_to_cup",
+       "from": "bowl_3",
+       "pos": [
+        0.084,
+        0.136
+       ],
+       "to": "cup_3"
+      }
+     ],
+     "unsupported_not_found": false,
+     "violations": []
+    },
+    "evaluator_verdict_sha256": "f1698248705ad8551bddfba0631e6a5a47ba784bb39aa3c05a265b432096ae07",
+    "final": {
+     "claim": "task_done",
+     "final_help": null,
+     "help_kind": null,
+     "source": "model",
+     "status": "terminal"
+    },
+    "grip_events": 0,
+    "inspection_map_at_choice": {
+     "not_found_in_checked_zone": [
+      "sink_basin",
+      "landing_tray",
+      "drying_mat"
+     ],
+     "outside_scope": "bins_interior, other surfaces not in view",
+     "search": "found",
+     "seen": [
+      "drawer_unit:1"
+     ],
+     "sponge_tracks": "trk-013 observed in drawer_unit:1",
+     "still_to_check": [
+      "drawer_unit:0"
+     ]
+    },
+    "loop_request_sha256": [
+     "e183136a4fa590210f8ea008530589525b76cdc82d84a5b71aa76e9daa38f4b2",
+     "d40afcac7b1712d12702ff61289a61d60452ac8c898ced2f896b7e2db29b6fa0"
+    ],
+    "loop_requests": 2,
+    "pick": [
+     {
+      "kind": "sponge",
+      "ok": true,
+      "pos_m": [
+       -0.2477,
+       -0.3127,
+       0.9243
+      ],
+      "reason": "ok"
+     }
+    ],
+    "programs_served": [
+     "inspect_v2.bs",
+     "scrub_v2.bs"
+    ],
+    "scene_state_sha256": [
+     "b2877ebe2ec50ee0c89fe5007ff86b4a9112bd71150f74a010008126bc3fee9f",
+     "98ccec3811254324d104fa588a291c07b804f079b8942612a8d6f7f937b90452"
+    ],
+    "scope_at_end": {
+     "not_cleared": [
+      "drawer_unit:0",
+      "drawer_unit:1",
+      "sink_basin",
+      "landing_tray",
+      "drying_mat"
+     ],
+     "outcome": "found"
+    },
+    "scrub": [
+     {
+      "felt_s": 3.0,
+      "ok": true,
+      "reason": "ok"
+     }
+    ],
+    "world_dev_checks": null
+   },
+   "kitchen": "31000",
+   "mode": "replay",
+   "noise_seed": 960000,
+   "scene": "A1",
+   "source_files_sha256": {
+    "DEMO_IDENTITY.json": "1817d7c1c852286e42d55135882ccb96ef886f46354c78c85fe3dee0c892bf70",
+    "agent_record.json": "ffb051da094e01cedf16bf474933103f55a0f9f484d2627138f76bc79ba93892",
+    "calls.jsonl": "7a34394da24504c15e499f278754e28986cd95d5205288a0e28eb8a0713346b3",
+    "choice_call.json": "e92ef54b89992932e9d16e2a3680f8518e3bc5b1125f5eee9498176c9beba02b",
+    "choice_request.json": "d320462d537db4acf4231ecf1a39561a1107eea73c7a12238a1f808dc51a26d9",
+    "choice_request.sha256": "9b1220a77a393c4c07ea9e3aba683c00ea219613106420b639ee3be5b151ef1e",
+    "choice_response.json": "bbbe1ca59a49d20019ca73580f6c08b7505475074e092853d0e524eba73ae919",
+    "client_ops.jsonl": "aef88425ea6670d99f9efb4c4319849e354ed57d4a2bcd484a06fc1e98500253",
+    "demo_calls.jsonl": "e5b8cdc8a91ab717635279c626d3c33506abd28f13571f6ba97a9f046cb4c01f",
+    "episode_row.json": "a3daf490f917d5c98db07415614b94380f3b87665c02569e9b7e7c277bb7d3eb",
+    "ledger_demo.json": "9212d1b803357bb922cb48d1e3474ac6ac723c4d309bfbd59c73c73de8fffec3",
+    "observable_feedback.json": "1dd7d4ab1ac60f32383620e03bea4bf75b8c9559def484223243624cdaa30c66",
+    "oracle_verdict.json": "4d18dca8374e68b4731cf26f58e41ce37f7d00423b25649c373e49e2ae670f31",
+    "requests.json": "e44f7de20c67d08610ac55b585fbaade402fccf6ce485334328c7592630d4f7f",
+    "trace.json": "7acf779f276199cc73a20225ab36a66eb61f721a163c341afe8f8df8758b3410"
+   }
+  }
+ },
+ "what_this_is": "Facts of the three recorded episodes shown on the replay page, read from their episode folders by demo/public_adapter.extract_facts, the same function that reads every new run. demo/run_episode.py compares a new run with these facts. Wall-clock times are left out. In the robot's own fields, source \"model\" names the agent loop's program slot: in these episodes that slot is filled by the demo client, which serves programs written by the team; Nemotron only picked scrub_bowl or ask_help from a text summary in the in_place and moved situations. evaluator holds the simulator-side grading, which the robot never sees."
+}

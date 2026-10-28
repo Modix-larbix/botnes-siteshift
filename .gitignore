@@ -1,0 +1,29 @@
+# Secrets: never committed. The client reads its key from the environment only.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Large or private outputs: never committed
+# ("data/" is anchored to the root here, so that the page's own site/data/ stays in the repository)
+/data/
+outputs/
+build/
+sanity/
+results/*/videos
+**/videos/
+*.npz
+checkpoints/
+runs/
+.venv/
+# MuJoCo's own log of warnings, written by each simulator run in the folder it is started from
+MUJOCO_LOG.TXT
+__pycache__/
+*.pyc
+.DS_Store
+menagerie/
+wandb/
+*.mp4
+*.safetensors
+# Your own calls with nemotron_client/send_choice.py --execute --save-dir my_calls/<name>
+my_calls/

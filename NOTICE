@@ -1,0 +1,81 @@
+Botnes SiteShift
+Copyright 2026 the Botnes SiteShift authors
+
+This repository is licensed under the Apache License, Version 2.0 (see LICENSE): the page under site/, the robot code,
+launcher and records under simulator/, the Nemotron choice client under nemotron_client/, the tools, tests and
+documents, the records under recorded/, and the files under assembly_pilot/ (the trial programs, the JSON they
+exported, the recount, the chart and the slide).
+
+Third parties used or referenced by this project
+================================================
+
+1. MuJoCo (https://github.com/google-deepmind/mujoco), Apache License 2.0, Google DeepMind.
+   The camera images under site/frames/ were rendered with MuJoCo 3.14.0 from simulated episodes. The simulator under
+   simulator/ needs MuJoCo 3.14.0 and NumPy 2.5.3, which the user installs from PyPI (simulator/requirements.txt,
+   each package under its own license). The second pilot (assembly_pilot/) ran MuJoCo 3.14.0 inside a Nebius AI Cloud
+   Serverless Job (see assembly_pilot/trial/requirements.txt). MuJoCo itself is not included in or redistributed by
+   this repository.
+
+2. MuJoCo Menagerie, model "franka_emika_panda" (https://github.com/google-deepmind/mujoco_menagerie),
+   Apache License 2.0. The Menagerie describes this model as derived from Franka Emika's publicly available
+   franka_description. The simulated arm seen in the images under site/frames/ is this model as the robot code under
+   simulator/ (siteagent/world/build.py) loads and edits it in memory (keyframes removed; a tool site and a wrist
+   camera added; the gripper force raised about ten times; gravity compensation of the arm's own weight), placed in a
+   kitchen scene written by the team. simulator/assets/fetch_panda.sh downloads the model from the Menagerie
+   repository at commit 71f066ad0be9cd271f7ed58c030243ef157af9f4 and checks its 70 files (panda.xml, its meshes, its
+   LICENSE and README) against simulator/assets/PANDA_ASSETS.sha256; the download stays on the user's machine.
+   AssembleNIST (item 4) ships the same model, edits it in memory with its own scene builder, and used it in the
+   second pilot. No Menagerie file (model, mesh or texture) is included in or redistributed by this repository.
+   Citation: Zakka, Tassa and the MuJoCo Menagerie Contributors, "MuJoCo Menagerie: A collection of
+   high-quality simulation models for MuJoCo", 2022.
+
+3. NVIDIA Nemotron 3 Super (nvidia/nemotron-3-super-120b-a12b), NVIDIA Nemotron Open Model License
+   (https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/; the license named
+   on the model card https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8, both opened on October 27,
+   2026), called at run time through Nebius Token Factory (an OpenAI-compatible inference API, used under its own
+   terms of service).
+   No model weights are included in or redistributed by this repository. The repository contains text that the model
+   returned: the answers of two calls (recorded/, simulator/recorded_choices/ and site/data/episodes.js), the
+   separate reasoning text of those two calls (simulator/recorded_choices/), and, in the earlier recorded episodes
+   shown on the page, programs the model wrote. Nemotron is not used in the second pilot.
+
+4. AssembleNIST (https://github.com/suniique/assembly-nist), MIT License, Copyright (c) 2026 Tao Sun.
+   Referenced only. The second pilot fetched it at commit eb5d15e004591d380c0d521da67e025ebee37703 and ran its
+   pretrained checkpoint e8192_it12500.pt, unchanged, inside a disposable Nebius AI Cloud Serverless Job. No
+   AssembleNIST code, checkpoint, asset, render, image or video is included in or redistributed by this repository:
+   assembly_pilot/ holds only our own trial programs, the JSON they exported from the Job, our recount, and a chart
+   and a slide drawn from that recount. AssembleNIST is one policy for the 20 assemblies of NIST Assembly Task
+   Board 1; the second pilot evaluated it on its task R16 only. AssembleNIST describes itself as an independent
+   implementation that builds on ideas from the AlphaNIST paper (Zhang et al., "AlphaNIST: Emergent Assembly Skills
+   from Binary Task Rewards", arXiv:2610.13354, https://alpha-nist.github.io/) and the SGS paper (Zhang et al.,
+   "A Balanced Data Diet: Addressing the Exploration Bottleneck in Mega-Scale RL for Robot Control",
+   arXiv:2610.12465, https://sgs-rl.github.io/), with no code from those projects and no affiliation with or
+   endorsement by their authors. It is not NVIDIA code. AssembleNIST asks to be cited together with AlphaNIST and
+   SGS; the three references are in README.md and assembly_pilot/README.md.
+
+5. NIST Assembly Task Board 1 part and fixture meshes and board layout, used by AssembleNIST, come from UW Lab
+   (https://github.com/UW-Lab/UWLab); AssembleNIST marks their redistribution license "to be confirmed before
+   redistribution". None of them, and no image of them, is included in this repository. The NIST assembly task boards
+   are described by NIST at
+   https://www.nist.gov/el/intelligent-systems-division-73500/robotic-grasping-and-manipulation-assembly/assembly
+
+6. Python packages installed inside the Job only, not included in this repository, each under its own license:
+   PyTorch 2.14.1 (CPU build) and the packages pinned in assembly_pilot/trial/requirements.txt (among them NumPy,
+   SciPy, imageio and Pillow).
+
+7. Nebius Token Factory and Nebius AI Cloud (Serverless Jobs) are services, used under their own terms.
+
+Fonts and libraries
+===================
+
+No font file and no third-party library is included. The page under site/ is plain HTML, CSS and JavaScript with no
+library and no external resource; it uses the viewer's system fonts. The client, the tools, the tests and
+assembly_pilot/recount.py use the Python standard library only; the simulator needs MuJoCo and NumPy (item 1).
+assembly_pilot/chart.svg names system fonts and embeds none; assembly_pilot/slide_1280x720.png is a picture drawn with
+system fonts and embeds no font file.
+
+NVIDIA, Nemotron, Nebius, Token Factory, NIST, MuJoCo and Franka Emika are named descriptively only; this project is
+not endorsed by them.
+
+The web addresses in this file come from the upstream projects' own files or from our notes. Each one was opened on
+October 27, 2026, except the UW Lab address, which comes from AssembleNIST's files and was not opened.

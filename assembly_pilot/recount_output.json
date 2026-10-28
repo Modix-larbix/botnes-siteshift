@@ -1,0 +1,223 @@
+{
+ "label": "SIMULATION (MuJoCo), recount of exported JSON, standard library only",
+ "task": "R16",
+ "part": "16 mm round peg",
+ "upstream": {
+  "url": "https://github.com/suniique/assembly-nist",
+  "commit": "eb5d15e004591d380c0d521da67e025ebee37703",
+  "checkpoint": "checkpoints/e8192_it12500.pt",
+  "checkpoint_sha256": "eb2cd4e9aacda2d26d23c059570522559e9fcd812a64f0aef60daea83408581e",
+  "checkpoint_iteration": 12500,
+  "loading": "torch.load(weights_only=True)"
+ },
+ "measures": {
+  "env_success": "the environment's own success predicate, latched at its first occurrence (keypoints within 1 mm, no simultaneous safety failure, 15 s limit)",
+  "inserted_at_report": "part keypoints within 1 mm in the simulator at the robot report instant",
+  "note": "two different measures, never merged"
+ },
+ "files_sha256": {
+  "results.json": "11f076e330de9c9cb4c913ede000211db420f29fa120802f4f097d2270341e66",
+  "audit.json": "651cd820a557b20d22db94f56ed27d1f75f236c7b208488e3ca800b44542cc2b",
+  "robot_reports.jsonl": "ca6e6f1105d93532ab02d36e35612e7ddae329deb3403e0510622ab4f6a6fbe0",
+  "summary.json": "4feaa7176bec3b3c9b4f302f9219f9ca04a44111009a3f9ffd182b21234793c1",
+  "plan.json": "b519670f8cd471b1dfeb631a29bc10ccea37922645e99c70829e7693936ffabe",
+  "evidence_manifest.json": "25502a032492d8edb41fd720d7241c2b7f2a413a9cb70a80ef786ab9d1a3131e"
+ },
+ "files_vs_job_manifest": {
+  "results.json": "matches the Job's evidence_manifest.json",
+  "audit.json": "matches the Job's evidence_manifest.json",
+  "robot_reports.jsonl": "matches the Job's evidence_manifest.json",
+  "summary.json": "matches the Job's evidence_manifest.json",
+  "plan.json": "matches the Job's evidence_manifest.json",
+  "evidence_manifest.json": "the manifest cannot list its own sha256"
+ },
+ "per_condition": {
+  "REF": {
+   "episodes": 320,
+   "env_success": 317,
+   "env_safety_failures": 3,
+   "inserted_at_report": 192,
+   "env_success_not_inserted_at_report": 125,
+   "inserted_at_report_without_env_success": 0,
+   "env_success_not_inserted_at_report_d_asm_mm": {
+    "n": 125,
+    "min": 1.0,
+    "median": 1.218,
+    "max": 1.875,
+    "at_most_2_0_mm": 125,
+    "above_2_0_mm": []
+   },
+   "inserted_at_report_max_d_asm_mm": 1.0,
+   "reports_at_15_s": 317,
+   "main_claims": {
+    "still to check": 317,
+    "not inserted": 0,
+    "inserted": 0,
+    "safety fault detected": 3
+   },
+   "scored_main_claims": {
+    "n": 0,
+    "confirmed_by_audit": 0,
+    "contradicted_by_audit": 0,
+    "recomputed_from_audit_truth_agrees": 0
+   },
+   "safety_fault_flags_consistency_check_not_scored": {
+    "n": 3,
+    "env_flag_agrees": 3,
+    "env_safety_failure_true": 3
+   },
+   "part_held": {
+    "n": 320,
+    "agree": 316,
+    "false_positives": 3,
+    "false_negatives": 1,
+    "said_held": 8,
+    "said_not_held": 312,
+    "disagreements": 4
+   }
+  },
+  "V1_OFFSET": {
+   "episodes": 320,
+   "env_success": 315,
+   "env_safety_failures": 5,
+   "inserted_at_report": 197,
+   "env_success_not_inserted_at_report": 118,
+   "inserted_at_report_without_env_success": 0,
+   "env_success_not_inserted_at_report_d_asm_mm": {
+    "n": 118,
+    "min": 1.001,
+    "median": 1.2705,
+    "max": 2.007,
+    "at_most_2_0_mm": 117,
+    "above_2_0_mm": [
+     2.007
+    ]
+   },
+   "inserted_at_report_max_d_asm_mm": 0.999,
+   "reports_at_15_s": 315,
+   "main_claims": {
+    "still to check": 315,
+    "not inserted": 0,
+    "inserted": 0,
+    "safety fault detected": 5
+   },
+   "scored_main_claims": {
+    "n": 0,
+    "confirmed_by_audit": 0,
+    "contradicted_by_audit": 0,
+    "recomputed_from_audit_truth_agrees": 0
+   },
+   "safety_fault_flags_consistency_check_not_scored": {
+    "n": 5,
+    "env_flag_agrees": 5,
+    "env_safety_failure_true": 5
+   },
+   "part_held": {
+    "n": 320,
+    "agree": 315,
+    "false_positives": 5,
+    "false_negatives": 0,
+    "said_held": 10,
+    "said_not_held": 310,
+    "disagreements": 5
+   }
+  },
+  "V2_OILY": {
+   "episodes": 320,
+   "env_success": 159,
+   "env_safety_failures": 10,
+   "inserted_at_report": 140,
+   "env_success_not_inserted_at_report": 19,
+   "inserted_at_report_without_env_success": 0,
+   "env_success_not_inserted_at_report_d_asm_mm": {
+    "n": 19,
+    "min": 1.0,
+    "median": 1.188,
+    "max": 38.164,
+    "at_most_2_0_mm": 17,
+    "above_2_0_mm": [
+     2.029,
+     38.164
+    ]
+   },
+   "inserted_at_report_max_d_asm_mm": 0.978,
+   "reports_at_15_s": 310,
+   "main_claims": {
+    "still to check": 296,
+    "not inserted": 14,
+    "inserted": 0,
+    "safety fault detected": 10
+   },
+   "scored_main_claims": {
+    "n": 14,
+    "confirmed_by_audit": 14,
+    "contradicted_by_audit": 0,
+    "recomputed_from_audit_truth_agrees": 14
+   },
+   "safety_fault_flags_consistency_check_not_scored": {
+    "n": 10,
+    "env_flag_agrees": 10,
+    "env_safety_failure_true": 10
+   },
+   "part_held": {
+    "n": 320,
+    "agree": 297,
+    "false_positives": 22,
+    "false_negatives": 1,
+    "said_held": 53,
+    "said_not_held": 267,
+    "disagreements": 23
+   }
+  }
+ },
+ "paired_vs_REF": {
+  "V1_OFFSET": {
+   "REF_success_variation_failure": 3,
+   "REF_failure_variation_success": 1,
+   "pairs_with_different_start_or_seed": 0,
+   "mcnemar_exact_p": 0.625
+  },
+  "V2_OILY": {
+   "REF_success_variation_failure": 158,
+   "REF_failure_variation_success": 0,
+   "pairs_with_different_start_or_seed": 0,
+   "mcnemar_exact_p": 5.47e-48
+  }
+ },
+ "all_conditions": {
+  "episodes": 960,
+  "main_claims": {
+   "still to check": 928,
+   "not inserted": 14,
+   "inserted": 0,
+   "safety fault detected": 18
+  },
+  "scored_main_claims_confirmed_by_audit": 14,
+  "scored_main_claims_contradicted_by_audit": 0,
+  "part_held_disagreements": 32,
+  "part_held_false_positives": 30,
+  "part_held_false_negatives": 2,
+  "part_held_said_held": 71,
+  "part_held_said_not_held": 889,
+  "env_success_not_inserted_at_report": 262,
+  "env_success_not_inserted_at_report_at_most_2_0_mm": 259,
+  "safety_fault_claims_env_flag_agrees": 18,
+  "reports_at_15_s": 942
+ },
+ "episode_simulation_wall_s": {
+  "per_condition": {
+   "REF": 26.3,
+   "V1_OFFSET": 26.5,
+   "V2_OILY": 21.9
+  },
+  "sum": 74.7
+ },
+ "cross_check_vs_job_summaries": {
+  "summary.json": "agrees",
+  "results.json summary": "agrees",
+  "audit.json per_condition": "agrees"
+ },
+ "vs_numbers_stated_in_README": "all match",
+ "problems": [],
+ "limits": "Raw 25 Hz signals were not exported: the audit verdicts are recounted and cross-checked, not recomputed from the signals."
+}

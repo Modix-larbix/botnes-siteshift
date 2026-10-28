@@ -1,0 +1,26 @@
+{
+ "answer_sha256": "239115c450103173a3aaca1c50a843888ef97d2140556d3b6af17c2be3940ad7",
+ "answer_text": "\n\n{\"option\": \"scrub_bowl\", \"reason\": \"Sponge is tracked in drawer, hand empty, no contacts or grip events, satisfying scrub_bowl preconditions.\"}",
+ "call_date": "2026-10-21T00:15:00+02:00",
+ "check": {
+  "ok": true,
+  "option": "scrub_bowl",
+  "reason": "Sponge is tracked in drawer, hand empty, no contacts or grip events, satisfying scrub_bowl preconditions.",
+  "refusal": null
+ },
+ "finish_reason": "stop",
+ "label": "Demo A choice call: one real call to Nemotron (Token Factory) on the exact frozen text of choice_request.json, text only; cost from the provider's usage at the reviewed prices",
+ "model_id": "nvidia/nemotron-3-super-120b-a12b",
+ "reasoning_text": "We need to decide whether we can perform scrub_bowl now based on conditions:\n\nThe description says scrub_bowl is valid only if the robot tracks a sponge it is not holding, hand: holds no, and reports 0 contact incidents and 0 grip events. In the scene state: hand: holding no; contact incidents 0; grip events 0. Also they have tracked sponge: sponge tracks: trk-012 observed in drawer_unit:0. So yes, they track a sponge not held, hand empty, contacts zero, grip zero. Therefore scrub_bowl should be allowed.\n\nThus answer: {\"option\":\"scrub_bowl\",\"reason\":\"Sponge is tracked in drawer, hand empty, no contacts/grips, so ready to pick and scrub.\"}\n\nMake sure format correct.",
+ "request_sha256": "37b01a38b0bb034786b1997d5b988ef3bfa60dce3e41833e891858e38950ab93",
+ "schema": "demoA-choice-response-1",
+ "usage": {
+  "completion_tokens": 204,
+  "completion_tokens_details": {
+   "reasoning_tokens": 164
+  },
+  "prompt_tokens": 698,
+  "total_tokens": 902
+ },
+ "usage_source": "provider"
+}

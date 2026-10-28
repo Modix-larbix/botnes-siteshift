@@ -1,0 +1,146 @@
+# scrub_v2.bs - Demo A, step 4, option scrub_bowl: fixed program written by the team, not by the model.
+# Version 2 (19/10/2026 evening, Codex Q8): scrub_v1.bs with one change in the pick block: a second pick
+# needs a NEW usable detection of the sponge (observed, this_view, a later pose_step than the refused
+# try's), else the program stops with help(kind="cannot_continue"); a refused pick is never made again on
+# the same detection (pick_pose_uncertain included). Nothing else changed.
+# Look at the region of the sponge the robot tracks and observe, pick it (no yaw: the robot sets the finger
+# axis), take the bowl on the landing tray from the robot's own tracks, scrub 3 s at 4 N, then done().
+# No give_up(): every failure ends with a help of a kind the robot never reviews (cannot_continue, or safety
+# after a contact). No drawer is closed; a drawer of the sponge believed closed is opened again first.
+# Simulation, simulated perception.
+
+def is_incident(reason):
+    code = str(reason)
+    return code.startswith(["pull_", "push_"]) or code in ["stuck", "blocked", "collision", "force_limit", "collision_on_approach", "lift_blocked"]
+
+def is_grip_event(reason):
+    return str(reason) in ["dropped", "slipped"]
+
+def region_known(region):
+    if region is None:
+        return False
+    code = str(region)
+    return code.startswith("drawer_unit:") or code in ["sink_basin", "landing_tray", "drying_mat"]
+
+def fresh_sponge():
+    best = None
+    best_step = -1
+    for t in tracks("sponge"):
+        if t["status"] == "observed" and get(t, "pose_source") == "this_view":
+            step = get(t, "pose_step")
+            if step is None:
+                step = 0
+            if best is None or step > best_step:
+                best = t
+                best_step = step
+    return best
+
+def tray_bowl():
+    best = None
+    best_d = 99.0
+    b0 = base_xy()
+    for b in tracks("bowl"):
+        if b["region"] == "landing_tray" and b["status"] != "held":
+            dd = hypot(b["position_m"][0] - b0[0], b["position_m"][1] - b0[1])
+            if dd < best_d:
+                best_d = dd
+                best = b
+    return best
+
+if holding():
+    help("hand already holds something", kind="cannot_continue")
+target = None
+for t in tracks("sponge"):
+    if t["status"] == "observed" and target is None:
+        target = t
+for t in tracks("sponge"):
+    if t["status"] == "stale" and target is None:
+        target = t
+if target is None:
+    help("no sponge track to pick", kind="cannot_continue")
+region = target["region"]
+log("demoA.scrub_target", {"track_id": target["track_id"], "status": target["status"], "region": region})
+
+# ---- the sponge's drawer stays open (D7); one believed closed is opened again before the look
+if region_known(region) and str(region).startswith("drawer_unit:"):
+    h = handle_for_region(region)
+    if h is None:
+        o = observe("robot_eye")
+        h = handle_for_region(region)
+    if h is not None and h["opening_m"] is not None and h["opening_m"] < 0.15:
+        r = open_drawer(h["position_m"], h["pull_dir"])
+        if not r["ok"] and is_incident(r["reason"]):
+            help("drawer " + str(r["reason"]), kind="safety")
+        if not r["ok"]:
+            help("drawer " + str(r["reason"]), kind="cannot_continue")
+
+# ---- a view from above, taken after the last action that could move the sponge (PICK PRECONDITION)
+if region_known(region):
+    r = look_at_region(region)
+else:
+    p = target["position_m"]
+    r = look_down_at([p[0], p[1]], p[2] - 0.02, 0.42)
+if not r["ok"] and is_incident(r["reason"]):
+    help("look " + str(r["reason"]), kind="safety")
+if r["ok"]:
+    o = observe("wrist_cam")
+
+# ---- pick: at most two tries, each at the newest detection; never the same pick again after a refusal
+# that a new view cannot change (under the unit top, overhead obstruction). v2: a second try only on a
+# detection newer than the refused one (a new view saw the sponge again); otherwise no second pick, help
+held = False
+tries = 0
+last = "no_fresh_detection"
+used_step = -1
+while tries < 2 and not held:
+    sp = fresh_sponge()
+    if sp is None:
+        break
+    step = get(sp, "pose_step")
+    if step is None:
+        step = 0
+    if step <= used_step:
+        log("demoA.pick_not_retried", {"after": last, "pose_step": step})
+        break
+    tries += 1
+    used_step = step
+    r = pick(sp["position_m"], "sponge")
+    if r["ok"]:
+        held = True
+    else:
+        last = str(r["reason"])
+        log("demoA.pick_not_done", {"try": tries, "reason": last})
+        if is_incident(last):
+            help("pick " + last, kind="safety")
+        if is_grip_event(last):
+            help("sponge dropped", kind="cannot_continue")
+        if last in ["pick_under_unit_top", "pick_overhead_obstruction"]:
+            help("pick " + last, kind="cannot_continue")
+        p = sp["position_m"]
+        r2 = look_down_at([p[0], p[1]], p[2] - 0.02, 0.42)
+        if not r2["ok"] and is_incident(r2["reason"]):
+            help("look " + str(r2["reason"]), kind="safety")
+        if r2["ok"]:
+            o = observe("wrist_cam")
+if not held:
+    help("pick failed " + last, kind="cannot_continue")
+if not holding():
+    help("sponge not held after pick", kind="cannot_continue")
+
+# ---- the bowl on the landing tray: the robot's own track nearest its base (robot_eye if none yet)
+bowl = tray_bowl()
+if bowl is None:
+    o = observe("robot_eye")
+    bowl = tray_bowl()
+if bowl is None:
+    help("bowl not seen on the landing tray", kind="cannot_continue")
+top = vadd(bowl["position_m"], [0.0, 0.0, 0.023])
+r = scrub(top, 3.0, 4.0)
+if r["ok"]:
+    done()
+last = str(r["reason"])
+if is_incident(last):
+    help("scrub " + last, kind="safety")
+if is_grip_event(last):
+    help("sponge dropped", kind="cannot_continue")
+help("scrub " + last, kind="cannot_continue")
