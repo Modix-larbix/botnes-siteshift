@@ -5,6 +5,7 @@ import tempfile
 import threading
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import server
 
@@ -60,6 +61,27 @@ class LocalBoundaryTests(unittest.TestCase):
         for path in ["/server.py", "/.env", "/simulator/demo/run_episode.py", "/evidence/../server.py"]:
             self.assertEqual(self.request("GET", path)[0], 404, path)
 
+    def read_policy(self, path):
+        connection = http.client.HTTPConnection("127.0.0.1", self.port, timeout=3)
+        connection.request("GET", path)
+        response = connection.getresponse()
+        self.assertEqual(response.status, 200)
+        policy = response.getheader("Content-Security-Policy")
+        response.read()
+        connection.close()
+        self.assertIsNotNone(policy)
+        return dict(part.strip().split(maxsplit=1) for part in policy.split(";") if part.strip())
+
+    def test_main_viewer_keeps_scripts_and_styles_restricted_to_self(self):
+        policy = self.read_policy("/")
+        self.assertEqual(policy["style-src"], "'self'")
+        self.assertEqual(policy["script-src"], "'self'")
+
+    def test_evidence_allows_legacy_styles_but_not_inline_scripts(self):
+        policy = self.read_policy("/evidence/")
+        self.assertEqual(policy["style-src"].split(), ["'self'", "'unsafe-inline'"])
+        self.assertEqual(policy["script-src"], "'self'")
+
     def test_missing_or_incomplete_record_is_not_an_analysis(self):
         with self.assertRaises(ValueError):
             server.analyze_run(Path(self.temp.name) / "missing")
@@ -90,6 +112,34 @@ class LocalBoundaryTests(unittest.TestCase):
             restored = server.Runner(Path(folder)).snapshot(identifier)
             self.assertEqual(restored["status"], "failed")
             self.assertFalse(restored["analysis_available"])
+
+
+class LauncherSignalTests(unittest.TestCase):
+    def assert_signal_cleanup(self, signum):
+        handlers = {}
+        runner = mock.Mock()
+        http = mock.Mock()
+
+        def serve_until_signal():
+            handlers[signum](signum, None)
+
+        http.serve_forever.side_effect = serve_until_signal
+        with mock.patch.object(server, "Runner", return_value=runner), \
+             mock.patch.object(server, "ThreadingHTTPServer", return_value=http), \
+             mock.patch.object(server.signal, "signal", side_effect=lambda sig, handler: handlers.setdefault(sig, handler)), \
+             mock.patch.object(server.sys, "argv", ["server.py"]), \
+             mock.patch("builtins.print"):
+            server.main()
+        self.assertIn(server.signal.SIGTERM, handlers)
+        self.assertIn(server.signal.SIGHUP, handlers)
+        runner.shutdown.assert_called_once_with()
+        http.server_close.assert_called_once_with()
+
+    def test_sigterm_uses_normal_runner_cleanup(self):
+        self.assert_signal_cleanup(server.signal.SIGTERM)
+
+    def test_sighup_uses_normal_runner_cleanup(self):
+        self.assert_signal_cleanup(server.signal.SIGHUP)
 
 
 if __name__ == "__main__":

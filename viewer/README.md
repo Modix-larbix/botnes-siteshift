@@ -26,7 +26,7 @@ Each session is kept under `viewer/runs/<id>/`, including rendered frames, the e
 
 If setup cannot find `uv`, install it from its [official instructions](https://docs.astral.sh/uv/getting-started/installation/). The simulator needs macOS and Python 3.12; setup creates `simulator/.venv` with the pinned packages. Other operating systems can view the recorded website described in the repository README.
 
-If port 8766 is already in use, check whether another SiteShift launcher is still running. You can also run `./start.command --port 8767` and use the address it prints. Keep that terminal window open. If a run is refused or differs from the reference, open its local run log and analysis. Do not interpret a difference as a matched reproduction.
+If port 8766 is already in use, check whether another SiteShift launcher is still running. You can also run `./start.command --port 8767` and use the address it prints. Keep that terminal window open. Ctrl+C and normal terminal shutdown stop the active simulation before the server exits. If a run is refused or differs from the reference, open its local run log and analysis. Do not interpret a difference as a matched reproduction.
 
 For the viewer's offline boundary tests, run `simulator/.venv/bin/python -B viewer/test_viewer.py` from the repository root. These checks do not call a model or run the robot. See [Testing](../docs/TESTING.md) for the other checks and their scope.
 

@@ -8,6 +8,7 @@ let playbackTimer = null;
 let polling = false;
 let pollFailures = 0;
 let nextPollAt = 0;
+let generation = 0;
 
 async function api(path, body) {
   const options = body === undefined ? {} : {
@@ -105,8 +106,14 @@ async function update() {
         $("viewer-label").textContent = data.status === "different" ? "Run completed with differences" : "Run interrupted";
         say(data.error || "This run did not finish. You can try again.", true);
         $("run-log").hidden = false;
-        const log = await (await fetch(`/api/runs/${run}/log`)).text();
-        if (current === run) $("log-content").textContent = log;
+        try {
+          const response = await fetch(`/api/runs/${run}/log`);
+          if (!response.ok) throw new Error("Log unavailable");
+          const log = await response.text();
+          if (current === run) $("log-content").textContent = log;
+        } catch {
+          if (current === run) $("log-content").textContent = "The log could not be loaded. This run has stopped; you can start a new simulation.";
+        }
       }
     } else {
       $("viewer-label").textContent = latestFrame ? "Running locally" : "Preparing your run";
@@ -124,6 +131,10 @@ async function update() {
 }
 
 $("start").addEventListener("click", async () => {
+  const startedGeneration = ++generation;
+  // Invalidate old analysis/status/restore responses as soon as the click
+  // happens, including the time before the new POST returns its run ID.
+  current = null;
   stopPlayback();
   clearInterval(pollTimer);
   pollFailures = 0;
@@ -140,6 +151,7 @@ $("start").addEventListener("click", async () => {
   try {
     const situation = document.querySelector('input[name="situation"]:checked').value;
     const data = await api("/api/runs", {situation});
+    if (generation !== startedGeneration) return;
     current = data.id;
     latestFrame = 0;
     sessionStorage.setItem("siteshift-run", current);
@@ -179,6 +191,13 @@ const criterionNames = {
   "no_other_dish_scrubbed": "No other dish scrubbed", "target_force_within_limit": "Force within the task threshold",
   "target_upright_and_in_place": "Bowl upright and in place",
 };
+function choiceLabel(report) {
+  if (report.recorded_answer_used) return report.same_request_text
+    ? "Recorded Nemotron answer, matching request text" : "Recorded answer; request text did not match";
+  if (report.who_chose === "rule" && report.option) return "Rule: one valid option";
+  if (!report.who_chose && !report.option) return "Choice not reached";
+  return `${(report.who_chose || "Unknown source").replaceAll("_", " ")}: ${report.option || "no accepted option"}`;
+}
 $("analyze").addEventListener("click", async () => {
   const analyzedRun = current;
   $("analyze").disabled = true;
@@ -199,7 +218,7 @@ $("analyze").addEventListener("click", async () => {
       ["Run", analyzedRun.slice(0, 10)],
       ["Evaluator outcome", report.outcome.replaceAll("_", " ")],
       ["Compared facts", report.comparison.equal ? "Match the recorded reference" : "Differ from the recorded reference"],
-      ["Next-step choice", report.recorded_answer_used ? "Recorded Nemotron answer, matching request text" : "Rule: one valid option"],
+      ["Next-step choice", choiceLabel(report)],
       ["Live model call", report.model_called ? "Yes" : "None"],
       ["Source files checked", String(report.files_verified)],
       ["Computation time", `${report.wall_s} seconds`],
@@ -233,15 +252,17 @@ $("analyze").addEventListener("click", async () => {
 
 // Refreshing the page does not silently start another run.
 (async () => {
+  const restoredGeneration = generation;
   const remembered = sessionStorage.getItem("siteshift-run");
   if (!remembered) return;
   try {
     const data = await api(`/api/runs/${remembered}`);
+    if (generation !== restoredGeneration) return;
     current = remembered;
     const selected = document.querySelector(`input[value="${data.situation}"]`);
     if (selected) selected.checked = true;
     setBusy(!terminal.has(data.status));
     await update();
     if (!terminal.has(data.status)) pollTimer = setInterval(update, 350);
-  } catch { sessionStorage.removeItem("siteshift-run"); }
+  } catch { if (generation === restoredGeneration) sessionStorage.removeItem("siteshift-run"); }
 })();

@@ -135,10 +135,10 @@ From the repository root after setup:
 simulator/.venv/bin/python -B viewer/test_viewer.py
 ```
 
-The initial nine viewer checks cover the local-origin and Host boundaries, rejected scenario/path inputs, blocked file access, missing analysis records, credential-free child environment, and restored session status. They use a temporary loopback HTTP server and do not simulate a robot or call a model.
+The thirteen viewer checks cover the local-origin and Host boundaries, rejected scenario/path inputs, blocked file access, missing analysis records, credential-free child environment, restored session status, route-specific style policies, and normal cleanup on SIGTERM/SIGHUP. They use a temporary loopback HTTP server and do not simulate a robot or call a model.
 
 Development checks of the visual wrapper ran all three situations on one Apple silicon Mac. The moved case rendered 429 frames, the hidden case 309 and the in-place case 414. All returned exit 0 with every compared fact matching the recorded reference. These are reproductions of development cases, not independent validation or a robustness rate. The process took about 24 to 33 seconds including startup on that Mac.
 
 Browser checks exercised Play simulation, Run analysis, replay of rendered frames and cancellation. A concurrent start returned HTTP409. Source comparisons found no changes to the frozen simulator. The old recorded website remains separate; its tests and counts above refer to that earlier website.
 
-The viewer also includes seven JavaScript regression checks in `viewer/test_ui.js`, runnable with `node --test viewer/test_ui.js` (Node.js 18 or later, optional for using the demo). They exercise the page controller in a small DOM harness: stale status and analysis responses, stale errors, help-request wording, reconnection after a transient status failure, and display of physical violations when task criteria all pass. This is not a browser rendering test.
+The viewer also includes thirteen JavaScript regression checks in `viewer/test_ui.js`, runnable with `node --test viewer/test_ui.js` (Node.js 18 or later, optional for using the demo). They exercise the page controller in a small DOM harness: stale status and analysis responses, stale errors, help-request wording, reconnection after a transient status failure, and display of physical violations when task criteria all pass. This is not a browser rendering test.

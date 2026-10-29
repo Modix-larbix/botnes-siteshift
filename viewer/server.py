@@ -106,7 +106,9 @@ class Runner:
             self.jobs[identifier] = job
             (directory / "SESSION.json").write_text(json.dumps({"id": identifier, "situation": situation,
                                                                 "started": job["started"]}))
-            threading.Thread(target=self._run, args=(job,), daemon=True).start()
+            worker = threading.Thread(target=self._run, args=(job,), daemon=True)
+            job["thread"] = worker
+            worker.start()
         return self.snapshot(identifier)
 
     def _run(self, job):
@@ -187,6 +189,11 @@ class Runner:
         for job in list(self.jobs.values()):
             if job["status"] not in TERMINAL:
                 self.cancel(job["id"])
+            # A cancellation can arrive before Popen has assigned the process.
+            # Let that worker observe cancel_requested and finish its cleanup.
+            worker = job.get("thread")
+            if worker is not None:
+                worker.join(timeout=7)
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -209,7 +216,10 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "same-origin")
-        self.send_header("Content-Security-Policy", "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'")
+        # The unchanged evidence page uses generated style attributes for its
+        # map colors and timeline positions. Scripts stay restricted to self.
+        style_sources = "'self' 'unsafe-inline'" if urlsplit(self.path).path.startswith("/evidence/") else "'self'"
+        self.send_header("Content-Security-Policy", f"default-src 'self'; img-src 'self' data:; style-src {style_sources}; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'")
         if attachment:
             self.send_header("Content-Disposition", f'attachment; filename="{attachment}"')
         self.end_headers()
@@ -307,6 +317,13 @@ def main():
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     server.runner = runner
     print(f"SiteShift is ready at http://127.0.0.1:{args.port}", flush=True)
+    def request_shutdown(signum, frame):
+        # The simulator is in a separate process group. Closing the launcher
+        # terminal must run the same cleanup as Ctrl+C, rather than orphan it.
+        raise KeyboardInterrupt
+
+    signal.signal(signal.SIGTERM, request_shutdown)
+    signal.signal(signal.SIGHUP, request_shutdown)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
