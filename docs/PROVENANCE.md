@@ -110,3 +110,8 @@ Job. `assembly_pilot/trial/` holds the four program files that ran in the Job, b
 included. For publication, only the module docstring and two comments of `recount.py` changed, to say that it compares
 with the constants `STATED` and does not read the README (same syntax tree without docstrings; its output is
 byte-identical to `recount_output.json`).
+
+
+## Visual launcher, October 29, 2026
+
+`viewer/`, `setup.sh` and `start.command` were added after the original public export. The viewer uses the simulator folder in this repository, without changing its frozen code, manifest, recorded choices or reference facts. Its only robot-process instrumentation is the optional spectator recorder and its argument. New local runs and frames are ignored by git and are not additional historical evidence. The preview image is a frame rendered during a local reproduction of the moved-sponge case. There are no new model calls or training runs in this change.
