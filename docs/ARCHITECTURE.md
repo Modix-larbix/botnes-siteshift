@@ -121,3 +121,14 @@ it does not rebuild the page data, and the page keeps showing the recorded episo
 4. `agent/host.py` `render_scene_state`: the state text the menu and Nemotron read.
 5. `taskcheck.py` `verdict` with `config/task_criteria_v1_4.json`: the evaluator.
 6. `site/app.js`: the reading map at the top of the file, then `reportClaims` and `markClaim`.
+
+
+## Visual launcher added October 29, 2026
+
+The new entry point is `start.command` at the repository root, after `sh setup.sh`. It starts `viewer/server.py` on the loopback interface. Clicking Play simulation starts `viewer/visual_run.py` in a fresh process, which uses the original `simulator/demo/run_episode.py` launcher. The frozen files and their manifest are unchanged.
+
+The visual wrapper supplies `gif_path` to the original `run_agent_episode` and replaces its optional `TaskRecorder` in memory with an observer that writes JPEG frames and progress. It renders an overview and the robot's two cameras. No spectator information becomes an input to the robot. Rendering adds work, but does not change the physics steps or task program. Each run still compares its recorded facts with the reference; matching facts, rather than a claim of identical execution under any observer, are the check used here.
+
+The server manages one process group at a time, supports cancellation and a ten-minute timeout, and keeps outputs in a new `viewer/runs/<id>/` folder. Run analysis reads the new episode's reproduction and evaluator records. It does not produce the earlier claim-by-claim report. The old `site/` website is served separately at `/evidence/` and continues to show only recorded episodes.
+
+The visual overview exposes simulator truth to the spectator from the start. The old evidence website's Reveal convention does not apply to this overview. The robot's information boundary remains the original program isolation. Browser JSON actions require the local origin and a custom header, and the server binds only to 127.0.0.1. No model credentials are inherited by the simulation child. See [the viewer guide](../viewer/README.md).

@@ -1,159 +1,74 @@
 # Botnes SiteShift
 
-**Change the kitchen, keep the mission.**
+The kitchen changed. Can the robot still finish its task?
 
-A robot that works on a site acts on a site file, and places change between visits. A robot that acts on an
-out-of-date file, or reports a result it cannot back up, makes a person check behind it. SiteShift shows, **in
-simulation only** (MuJoCo physics, simulated perception, no physical robot), a robot arm that inspects a kitchen that
-may no longer match its site file, keeps what it could not settle as "still to check", then does the task or asks a
-person. Its report is then checked claim by claim against the simulator's records, which the robot never sees.
+SiteShift is a robotics simulation prototype built for the Nebius × NVIDIA Global AI Hackathon. A Franka Panda arm inspects a kitchen, looks for a sponge, then scrubs a bowl or asks for help. You can start a new simulation on your Mac and watch the robot move.
 
-Submission to the Nebius x NVIDIA Global AI Hackathon, Physical AI track. Times in this README are in UTC.
+![The simulated robot and its cameras](viewer/web/preview.jpg)
 
-[Results](#results) · [Run it](#run-it) · [How it works](#how-it-works) · [Limits](#limits) · [Contents](#repository-contents) · [License](#license-and-third-parties)
+## Play the simulation
 
-## Results
+The simulator currently requires macOS. It has been tested on one Apple silicon Mac. Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and git, then run these commands from the repository folder:
 
-One development kitchen (31000), one simulated Franka Panda arm, one mission: find the sponge, pick it up, scrub the
-bowl. The site file says drawer 0; we change the kitchen without telling the robot. Robot code frozen October 20, 2026.
+```sh
+sh setup.sh
+./start.command
+```
 
-| # | Situation | What the robot did | Who chose the next step | Evaluator, after Reveal | Report: claims, true, false, not checkable |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Sponge in its place (the control; `in_place` in the simulator) | Saw it in drawer 0, picked it, scrubbed the bowl | Nemotron: `scrub_bowl`, from a menu of two | Success, 8 of 8 task criteria | 13, 8, 0, 5 |
-| 2 | Sponge moved: it swapped drawers with the spray bottle (`moved`) | Saw it in drawer 1, picked it there, scrubbed the bowl | Nemotron: `scrub_bowl`, from a menu of two | Success, 8 of 8 task criteria | 13, 8, 0, 5 |
-| 3 | Sponge masked by a towel in drawer 0 (`masked`) | Picked nothing, left drawer 0 *still to check*, asked a person | A rule: only `ask_help` was valid, no model call | Help with the sponge present (expected); no false "not found" | 13, 6, 0, 7 |
-| | **The three reports together** | | | | **39, 22, 0, 17** |
+Open [localhost:8766](http://127.0.0.1:8766/) in your browser. Choose a situation and click **Play simulation**. The page starts a new MuJoCo calculation and displays an overview, the robot camera and the wrist camera while it runs. Nothing starts until you click.
 
-**No false claim detected among the checkable claims of these three simulated episodes; 17 of 39 claims not
-checkable.** The counts are not a success rate. Each claim and its mark: [docs/CLAIMS.md](docs/CLAIMS.md).
+The three situations took about 24 to 33 seconds in local checks on this Mac, including startup. Other machines may take longer. The first pass is computing and rendering, so movement can look uneven. Once it finishes, click **Replay movements** for smoother playback of the saved images. That button does not start a second simulation. Playback is accelerated.
 
-## Run it
+Click **Run analysis** to read that run's evaluator results and its comparison with the recorded reference. You can stop a running episode. Each run keeps its own images and records under `viewer/runs/`; the code, recordings and earlier runs are not replaced.
 
-**(a) The replay page (the recorded episodes): no install, no key, no network.** Python 3.8 or later, from the repository root:
+Setup downloads Python packages and a pinned Panda model. Running the demo needs no API key, GPU or cloud service. Keep the launcher window open while using the page. See the [viewer guide](viewer/README.md) for the controls and troubleshooting.
+
+## Why build this?
+
+I want robots to work toward a goal even when their surroundings change, with less programming of every possible situation. SiteShift explores a small part of that problem: noticing a change, preserving uncertainty and checking what actually happened.
+
+The intended audience is robotics developers and integrators testing manipulation tasks. A possible use is to reproduce a changed environment, inspect a failure and compare software revisions. That usefulness still needs validation with other teams.
+
+This prototype does not yet plan its own actions freely. The inspection route and gestures are programmed. The current scope is one development kitchen, one arm and one task, with simulated perception and uncalibrated physics. It has not demonstrated general-purpose autonomy, compatibility with arbitrary models or performance on a physical robot.
+
+## What changes between the situations?
+
+The mission stays the same: find the sponge, pick it up and scrub the bowl. The site file says the sponge is in drawer 0.
+
+| Situation | What the recorded reference shows |
+| --- | --- |
+| Nothing moved | The robot finds the sponge in drawer 0 and scrubs the bowl. |
+| Sponge moved | The sponge and spray bottle have swapped drawers. The robot finds the sponge in drawer 1 and scrubs the bowl. |
+| Sponge hidden | A towel covers the sponge. The robot keeps that area marked “still to check” and asks for help. |
+
+Each new local run is checked against those reference episodes. Differences are reported rather than hidden. These are three development examples, not a reliability estimate.
+
+## Where NVIDIA and Nebius fit
+
+Code builds a menu of valid next steps from the robot's own text summary. When both `scrub_bowl` and `ask_help` are valid, NVIDIA Nemotron 3 Super chooses between them through Nebius Token Factory. Code checks the answer again. Two real calls were recorded for the main demo. When only `ask_help` is valid, a rule takes it without a model call.
+
+The visual launcher recalculates physics but reuses those recorded choices. A choice is accepted only if the new request text matches the recorded request exactly; otherwise the client refuses it. There is no live model call while you play. Nemotron does not inspect images, control the arm, write the report or grade the result. The robot's perception uses simulated depth and object labels.
+
+The repository also includes a second pilot: 960 episodes of an existing AssembleNIST peg insertion policy, run unchanged in a CPU only Nebius AI Cloud Serverless Job. It separates success recorded during an episode from insertion at report time and documents errors in our own report. No Nemotron or retraining was used in that pilot. See [assembly_pilot](assembly_pilot/README.md).
+
+## Recorded evidence and known limits
+
+**Recorded evidence** in the visual launcher opens the earlier website. It replays stored episodes and checks the robot's report against the evaluator's records. It does not display your new local run. Across its three main reports, 22 of 39 claims are confirmed, none are contradicted and 17 cannot be checked. Those are counts, not a success rate.
+
+On other operating systems, you can view that recorded website without installing the simulator:
 
 ```sh
 python3 -m http.server 8765 --bind 127.0.0.1 --directory site
 ```
 
-Open <http://127.0.0.1:8765/> and click **Start with situation 1**. Each situation shows the robot's side first (its
-readings, its map, its choice, its action, its report); **Reveal and check its claims** adds the evaluator's records
-and each claim's mark. Nothing is simulated and no model is called while you watch.
+Open [localhost:8765](http://127.0.0.1:8765/). This requires Python 3.8 or later and calls no model.
 
-**(b) The simulator (runs them again): macOS only (tested on Apple silicon), Python 3.12, [uv](https://docs.astral.sh/uv/), git.** The
-install fetches MuJoCo and NumPy from PyPI and the Panda model from MuJoCo Menagerie at a pinned commit (uv also
-downloads Python 3.12 if it is missing); then all is offline:
+The robot cannot lift cloth. A separate diagnostic found an unresolved failure with a thin cloth reported as the catalog towel. Calibration contact is exempt from the bench's contact rule despite exceeding 20 N. The second pilot also makes errors on whether a part is held. These limits and the difference between observed, reported and checked results are documented in [Claims](docs/CLAIMS.md), [Architecture](docs/ARCHITECTURE.md), [Testing](docs/TESTING.md) and [Provenance](docs/PROVENANCE.md).
 
-```sh
-cd simulator
-uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python -r requirements.txt
-sh assets/fetch_panda.sh
-env -u NEBIUS_API_KEY -u OPENAI_API_KEY PYTHONDONTWRITEBYTECODE=1 \
-    .venv/bin/python -B demo/run_episode.py --situation moved --out runs/moved_1
-cd ..                                             # back to the repository root
-```
+The simulator's [command-line guide](simulator/README.md) remains available. The [public model client](docs/TESTING.md) reconstructs a request in dry-run mode by default; optional live calls are separate from this demo and require your own credentials and budget.
 
-Use `in_place`, `moved` or `masked`, each time with a new `--out` folder. A run takes about 20 to 30 seconds, writes
-that folder (the robot's records, the evaluator's verdict, `REPRODUCTION.json`) and ends with a summary such as
-`"exit_code": 0, "final_claim": "task_done", "who_chose": "nemotron", "matches_recorded_episode": true`. For `masked`
-the summary says `"who_chose": "rule"`, `"final_claim": "help_requested:regions_still_to_check_1"` and `"success":
-false`: that is the help request the table above shows as expected (`help_with_sponge_present` is true in
-`REPRODUCTION.json`). No model is called: the recorded Nemotron answer is reused only if the robot's request text is
-byte-identical to the recorded one; otherwise the run stops with a refusal (exit 3). On another machine rendering or
-physics may differ: the run then lists each difference from the recorded episode (exit 5) instead of hiding it.
-Another system or Python version is refused before anything runs (exit 2).
+## License and credits
 
-A run does not rebuild the page or its report. It checks that the robot's records and the evaluator's verdict equal
-those of the recorded episode the page shows (`matches_recorded_episode`). The page's code writes the report and its
-marks from those recorded records; the exporter from an episode folder to `site/data/` is not included. More in
-[simulator/README.md](simulator/README.md).
+[Apache 2.0](LICENSE). [NOTICE](NOTICE) lists software, models and attribution. The simulator uses [MuJoCo](https://github.com/google-deepmind/mujoco), NumPy and the Franka Panda model from [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie), downloaded separately. Model weights are not distributed. This project is not endorsed by the companies named here.
 
-**Checks without installing anything** (Python 3.8 or later, standard library, offline). From the repository root:
-
-```sh
-python3 -B tools/extract_recorded.py --check      # recorded/ equals the page data; fingerprints and answers check out
-python3 -B tests/test_nemotron_client.py          # 31 tests of the client, offline (fake transport, fake key)
-python3 -B nemotron_client/send_choice.py recorded/demoA_A1_31000/choice_request.json   # dry run: sends nothing
-cd assembly_pilot && python3 -B recount.py results/   # recounts the second pilot, exit 0 if all match
-cd results && shasum -a 256 -c SHA256SUMS         # or: sha256sum -c SHA256SUMS
-cd ../..                                          # back to the repository root
-```
-
-What each check covers and the exit codes: [docs/TESTING.md](docs/TESTING.md). One real call with your own key in
-`NEBIUS_API_KEY` (billed to you, about 0.0006 USD expected; the answer may differ from the recorded one) adds
-`--execute --save-dir my_calls/first_call` to the dry run. Run it once; after an error, look at that folder first.
-
-## How it works
-
-1. Simulated sensors (depth, object labels, noise) feed the robot's perception during a team-written inspection.
-2. The robot labels each zone *sponge seen*, *sponge not found in the checked zone* or *still to check*.
-3. Code checks eight conditions on the robot's text; if both options are valid, Nemotron picks one, re-checked by code.
-4. A team-written program picks and scrubs, or asks a person; the evaluator grades the run from the simulator's truth.
-5. The page's code writes the report from the robot's records and marks each claim after Reveal ([details](docs/ARCHITECTURE.md)).
-
-## What Nemotron does and does not do
-
-NVIDIA Nemotron 3 Super (`nvidia/nemotron-3-super-120b-a12b`) on Nebius Token Factory makes one decision in situations
-1 and 2: `scrub_bowl` or `ask_help`, once code has found both valid, from a text-only request (the rules, the menu of
-two, the robot's state text) at temperature 0. It does not see images, plan, move the arm, write the report or check
-anything. Two real calls stand behind the demo, on October 20, 2026 at 22:15:00 (situation 1) and 22:14:56 (situation
-2): 2.4 s and 3.3 s, 0.0009942 USD in total, computed from the usage the provider reported (details in
-[docs/PROVENANCE.md](docs/PROVENANCE.md)). Situation 3 made no call. The public client in
-[`nemotron_client/`](nemotron_client/) rebuilds the exact request; it is tested offline only and has not made a real
-call itself. Earlier development episodes on the page replay 9 more calls in which Nemotron wrote whole programs.
-
-## Second pilot: AssembleNIST on Nebius AI Cloud
-
-The pretrained policy of AssembleNIST by Tao Sun (MIT license, not NVIDIA code), used as is on its peg insertion task
-R16, ran 960 paired episodes in one CPU-only Nebius AI Cloud Serverless Job on October 26, 2026. Environment success:
-317, 315 and 159 of 320; inserted at report time: 192, 197 and 140 of 320 (two measures, kept apart). Our report's
-"part held" disagrees with the audit 32 times out of 960. Details and recount: [assembly_pilot/](assembly_pilot/README.md).
-
-## Limits
-
-- Simulation only: one development kitchen, one task, simulated perception (the robot reads depth and object labels
-  from the simulated camera, not color images). No physical robot, and no claim about one.
-- Three episodes are illustrations, not a reliability estimate or a measure of what Nemotron adds. The programs were
-  written by the team; Nemotron only chooses between two of them.
-- 17 of the 39 claims are not checkable; the zone checks cover the site file's zones only. Reveal is a display rule,
-  not access control: the page's data files already hold the evaluator's results.
-- No cloth is lifted. The masked situation uses the thick catalog towel; in a diagnostic on modified recorded sensor
-  images, the check behind "sponge not found" was wrong in 13 of 16 cases when a thin cloth was reported as the
-  catalog towel. That case remains open.
-- Each episode starts with a calibration contact over 20 N (peaks 48.6, 25.9 and 93.9 N), exempt under the bench rule
-  and shown after Reveal; the "0 contact incidents" checked before the choice is the robot's own count.
-- The simulator runs on macOS only and was tested on one Mac. The page's exporter, the development seed registry and
-  the kitchens kept for a later blind validation are not published. Strings in the frozen code keep development notes.
-- Second pilot: one task, one batch, an uncalibrated simulator, the simulator's part pose instead of camera perception;
-  our report's "part held" was wrong in 30 of the 71 times it said "held".
-
-## Repository contents
-
-| Path | What it is |
-| --- | --- |
-| `site/` | The replay page: `index.html`, `app.js`, `style.css`, `data/*.js` (the recorded episodes), `frames/` (camera images) |
-| `simulator/` | The robot code that recorded the episodes, its evaluator, the demo launcher and the public entry point `demo/run_episode.py` |
-| `nemotron_client/` | `choice_prompt.py` (the request text and the answer check) and `send_choice.py` (dry run, or one real call) |
-| `recorded/` | The two real Nemotron calls: request and answer, as the page data hold them |
-| `tools/`, `tests/` | `extract_recorded.py` (rebuilds or checks `recorded/`) and the client's tests |
-| `assembly_pilot/` | The second pilot: its README, six exported result files, the recount, the trial programs that ran in the Job |
-| `docs/` | [ARCHITECTURE.md](docs/ARCHITECTURE.md), [TESTING.md](docs/TESTING.md), [PROVENANCE.md](docs/PROVENANCE.md) (fingerprints, what changed for publication), [CLAIMS.md](docs/CLAIMS.md) |
-
-## License and third parties
-
-Apache License 2.0 ([`LICENSE`](LICENSE)); third parties in [`NOTICE`](NOTICE). MuJoCo (Apache-2.0) and NumPy come
-from PyPI. The Franka Emika Panda model of MuJoCo Menagerie (Apache-2.0) is fetched at a pinned commit, not
-redistributed. AssembleNIST (MIT license, Tao Sun) ran in the second pilot's Job only and is not redistributed; it asks
-to be cited with AlphaNIST and SGS. Nemotron 3 Super is used through Nebius Token Factory, no weights included
-([model card](https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8)). Names of companies and products
-are used descriptively; this project is not endorsed by them.
-
-Links, each opened on October 27, 2026: [hackathon rules](https://nebiusglobalaihackathon.devpost.com/rules),
-[NVIDIA Nemotron](https://developer.nvidia.com/topics/ai/nemotron), [Token Factory quickstart](https://docs.tokenfactory.nebius.com/quickstart),
-[Serverless Jobs quickstart](https://docs.nebius.com/serverless/quickstart/jobs), [MuJoCo](https://github.com/google-deepmind/mujoco)
-(Todorov, Erez and Tassa, IROS 2012), [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) (Zakka,
-Tassa et al., 2022), [AssembleNIST](https://github.com/suniique/assembly-nist), [AlphaNIST](https://alpha-nist.github.io/),
-[SGS](https://sgs-rl.github.io/), [NIST assembly task boards](https://www.nist.gov/el/intelligent-systems-division-73500/robotic-grasping-and-manipulation-assembly/assembly).
-
-Built with AI coding assistants (Claude and Codex). The results shown are checked by the scripts and tests listed in
-[TESTING.md](docs/TESTING.md).
+Built with AI coding assistants Claude and Codex. The frozen simulator is unchanged by the visual launcher; the viewer adds a spectator renderer and reads the resulting records. Tests and reproduction checks are described in [Testing](docs/TESTING.md).

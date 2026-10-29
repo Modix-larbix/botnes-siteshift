@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiteShift · Play simulation</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="masthead">
+  <a class="wordmark" href="/" aria-label="SiteShift home"><span class="brandmark" aria-hidden="true">S</span> SiteShift <span class="byline">by Botnes</span></a>
+  <nav aria-label="Main navigation">
+    <a href="#simulation">Simulation</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="/evidence/" target="_blank" rel="noopener">Recorded evidence</a>
+  </nav>
+</header>
+<main>
+  <section id="simulation" class="introduction">
+    <div>
+      <h1>Play simulation.</h1>
+      <p class="lead">The kitchen changed. Can the robot still finish its task?</p>
+      <p class="intro-copy">Choose a situation and start a new local run. Watch the robot inspect the kitchen, look for a sponge, then scrub a bowl or ask for help.</p>
+    </div>
+    <div class="local-note"><span class="status-dot" aria-hidden="true"></span><strong>Runs on your Mac</strong><span>Uncalibrated simulation. No physical robot.</span><span id="estimate">Allow roughly 30 seconds to 3 minutes.</span></div>
+  </section>
+
+  <section class="workspace" aria-label="Simulation controls and viewer">
+    <fieldset id="scenarios" class="scenario-list">
+      <legend>What changed?</legend>
+      <label class="scenario"><input type="radio" name="situation" value="in_place"><span><strong>Nothing moved</strong><small>The sponge is in its usual drawer.</small></span><span class="scene-icon" aria-hidden="true">▤</span></label>
+      <label class="scenario"><input type="radio" name="situation" value="moved" checked><span><strong>Sponge moved</strong><small>Another drawer. The site file is out of date.</small></span><span class="scene-icon" aria-hidden="true">⇄</span></label>
+      <label class="scenario"><input type="radio" name="situation" value="masked"><span><strong>Sponge hidden</strong><small>A towel blocks part of the search.</small></span><span class="scene-icon" aria-hidden="true">▧</span></label>
+    </fieldset>
+
+    <div class="viewer-shell">
+      <div class="actionbar">
+        <div class="action-buttons"><button id="start" class="primary" type="button"><span aria-hidden="true">▶</span> Play simulation</button><button id="stop" class="secondary" type="button" hidden>Stop run</button><button id="analyze" class="secondary" type="button" disabled>Run analysis</button></div>
+        <p id="status" role="status" aria-live="polite">You start the run. Nothing is running yet.</p>
+      </div>
+      <p class="playback-tip">The first run computes the simulation, so movements may look uneven. Once it finishes, click <strong>Replay movements</strong> for smoother playback. This replays your saved images without starting a new simulation.</p>
+      <div class="viewer-toolbar"><div><span id="live-dot" class="status-dot idle" aria-hidden="true"></span><strong id="viewer-label">Ready when you are</strong></div><span id="clock">New run, not a recorded video</span></div>
+      <div class="viewport" id="viewport">
+        <img id="robot-view" src="/preview.jpg" alt="Preview of the simulated Panda robot and kitchen. Press Play simulation to calculate a new run.">
+        <div id="empty-view" class="empty-view"><span class="play-symbol" aria-hidden="true">▷</span><p>Your simulation starts here.</p><small>Press Play simulation above.</small></div>
+        <div class="camera-label overview">Overview <span>spectator</span></div>
+        <div class="camera-label mast">Robot camera</div>
+        <div class="camera-label wrist">Wrist camera</div>
+        <div id="preparing" class="preparing" hidden><span class="spinner" aria-hidden="true"></span><strong>Building your scene…</strong><span>The first image will appear here.</span></div>
+      </div>
+      <div id="replay" class="replay" hidden title="Saved images at 10 frames per second, about 4 times simulated speed">
+        <button id="playback" class="quiet-button" type="button">Replay movements</button>
+        <input id="scrubber" aria-label="Recorded frame of this local run" type="range" min="1" max="1" value="1">
+        <span id="frame-label">Frame 1</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="activity" class="activity" hidden aria-label="Run activity">
+    <div><h2>What is happening</h2><p id="current-action">Preparing the kitchen</p></div>
+    <div class="activity-data"><span><strong id="sim-time">0.0 s</strong> simulated</span><span><strong id="frame-count">0</strong> images rendered</span></div>
+    <ol id="events" class="events"></ol>
+  </section>
+
+  <section id="analysis" class="analysis" hidden aria-labelledby="analysis-title">
+    <div class="section-heading"><div><h2 id="analysis-title">Your run, checked.</h2><p>Readiness report, uncalibrated simulation</p></div><a id="download-report" class="text-link" href="#" download="SiteShift-REPRODUCTION.json">Download run record</a></div>
+    <div class="analysis-grid"><div><h3 id="outcome">Result</h3><p id="result-description"></p><dl id="run-facts"></dl></div><div><h3>Evaluator checks</h3><p class="muted">Checks for this episode only, not a reliability score. A task check can be unmet because the robot asked for help before attempting it.</p><ul id="criteria"></ul></div></div>
+    <p id="evaluator-detail" hidden></p>
+    <div id="violations-box" hidden><h3>Additional evaluator findings</h3><ul id="violations"></ul></div>
+    <details id="differences-box" hidden><summary>Differences from the recorded reference</summary><pre id="differences"></pre></details>
+  </section>
+  <details id="run-log" class="run-log" hidden><summary>Local run log</summary><pre id="log-content"></pre></details>
+
+  <section id="how-it-works" class="explanation">
+    <div class="section-heading"><div><h2>Give a goal. Let the robot handle the change.</h2><p>Why SiteShift exists, and what this prototype demonstrates</p></div></div>
+    <p class="motivation">A robot should be able to work toward a goal when its surroundings no longer match its instructions. SiteShift explores a small part of that problem: noticing a change, keeping uncertainty visible, and checking what actually happened. Today, the inspection and gestures are programmed; the robot does not yet make an open-ended plan.</p>
+    <div class="explanation-grid">
+      <article><h3>Observe, then act</h3><p>The simulated robot opens drawers and checks the zones it can reach. It keeps uncertain areas marked as still to check. Its goal is to find a sponge, pick it up and scrub a bowl.</p></article>
+      <article><h3>A new physics run</h3><p>Play simulation starts MuJoCo on this Mac. The images above are rendered from that run while it computes. The overview is for you, the spectator, and is never passed to the robot.</p></article>
+      <article><h3>A bounded model choice</h3><p>The robot executes fixed programs written by the team. When two next steps are valid, it reuses a recorded NVIDIA Nemotron choice only if the request text matches exactly. There is no live AI call or training here.</p></article>
+      <article><h3>Check what happened</h3><p>Run analysis reads this new episode’s evaluator records. It shows which criteria were met and whether the compared facts match the recorded reference. The hidden-sponge case can end by asking for help.</p></article>
+    </div>
+    <div class="scope-note"><strong>Scope of this prototype</strong><p>Three situations in one development kitchen, with simulated perception and uncalibrated physics. This does not demonstrate general-purpose autonomy or real-world deployment. The recorded studies, report analysis and known limitations are available separately.</p><a href="/evidence/" target="_blank" rel="noopener">Explore the recorded evidence and limitations</a></div>
+  </section>
+</main>
+<footer><span>SiteShift by Botnes</span><span>Local visual launcher · No cloud compute</span><a href="https://github.com/Modix-larbix/botnes-siteshift" target="_blank" rel="noopener">Published source</a></footer>
+</body>
+</html>

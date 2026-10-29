@@ -1,0 +1,2 @@
+-r ../simulator/requirements.txt
+pillow==12.3.0
